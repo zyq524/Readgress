@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AB8B67
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{50968B37-2C56-47D2-A89A-12ACEB38F92F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLibrary.UnitTests", "..\Shared\OpenLibrary.UnitTests\OpenLibrary.UnitTests.csproj", "{7C091854-2208-4143-B17E-82CA645158CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +30,15 @@ Global
 		{12154FF3-1FE0-471C-8686-DA35CFD2E8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12154FF3-1FE0-471C-8686-DA35CFD2E8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12154FF3-1FE0-471C-8686-DA35CFD2E8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C091854-2208-4143-B17E-82CA645158CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C091854-2208-4143-B17E-82CA645158CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C091854-2208-4143-B17E-82CA645158CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C091854-2208-4143-B17E-82CA645158CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C091854-2208-4143-B17E-82CA645158CB} = {50968B37-2C56-47D2-A89A-12ACEB38F92F}
 	EndGlobalSection
 EndGlobal
