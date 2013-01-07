@@ -1,0 +1,21 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace Readgress.Models
+{
+    public class Progress
+    {
+        public Progress()
+        {
+            this.Bookmarks = new List<Bookmark>();
+        }
+
+        [Key]
+        public int Id { get; set; }
+
+        public bool IsFinished { get; set; }
+
+        public Reader Reader { get; set; }
+        public ICollection<Bookmark> Bookmarks { get; set; }
+    }
+}

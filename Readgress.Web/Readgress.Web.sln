@@ -16,6 +16,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{50968B37
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLibrary.UnitTests", "..\Shared\OpenLibrary.UnitTests\OpenLibrary.UnitTests.csproj", "{7C091854-2208-4143-B17E-82CA645158CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.Data.Contracts", "..\Shared\Readgress.Data.Contracts\Readgress.Data.Contracts.csproj", "{46D1754C-F68D-430A-A617-4DAD5222FCE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.Data", "..\Shared\Readgress.Data\Readgress.Data.csproj", "{2412C7CD-4D60-4DCE-AA9C-67494DE5667C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.Models", "..\Shared\Readgress.Models\Readgress.Models.csproj", "{31CA48D7-F2EB-493E-8F8D-45C6A8FD0363}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.Con", "..\Readgress.Con\Readgress.Con.csproj", "{D15AA03D-5396-4970-89E1-A8F471E9E08F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +42,22 @@ Global
 		{7C091854-2208-4143-B17E-82CA645158CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C091854-2208-4143-B17E-82CA645158CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C091854-2208-4143-B17E-82CA645158CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46D1754C-F68D-430A-A617-4DAD5222FCE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46D1754C-F68D-430A-A617-4DAD5222FCE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46D1754C-F68D-430A-A617-4DAD5222FCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46D1754C-F68D-430A-A617-4DAD5222FCE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2412C7CD-4D60-4DCE-AA9C-67494DE5667C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2412C7CD-4D60-4DCE-AA9C-67494DE5667C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2412C7CD-4D60-4DCE-AA9C-67494DE5667C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2412C7CD-4D60-4DCE-AA9C-67494DE5667C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31CA48D7-F2EB-493E-8F8D-45C6A8FD0363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31CA48D7-F2EB-493E-8F8D-45C6A8FD0363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31CA48D7-F2EB-493E-8F8D-45C6A8FD0363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31CA48D7-F2EB-493E-8F8D-45C6A8FD0363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15AA03D-5396-4970-89E1-A8F471E9E08F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15AA03D-5396-4970-89E1-A8F471E9E08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15AA03D-5396-4970-89E1-A8F471E9E08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15AA03D-5396-4970-89E1-A8F471E9E08F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
