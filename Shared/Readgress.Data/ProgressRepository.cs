@@ -18,5 +18,10 @@ namespace Readgress.Data
         {
             return this.DbSet.Include("Bookmarks").Where(p => p.Reader.Id == readerId);
         }
+
+        public Progress GetByOLId(string oLId)
+        {
+            return this.DbSet.Include("Bookmarks").FirstOrDefault(p => string.Compare(p.OLId, oLId, true) == 0);
+        }
     }
 }
