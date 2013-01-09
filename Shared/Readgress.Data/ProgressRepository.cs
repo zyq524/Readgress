@@ -9,19 +9,23 @@ namespace Readgress.Data
     {
         public ProgressRepository(DbContext context) : base(context) { }
 
+        public override IQueryable<Progress> GetAll()
+        {
+            return base.GetAll().Include("Bookmarks");
+        }
         public Progress GetByBookmarkId(int bookmarkId)
         {
-            return this.DbSet.Include("Bookmarks").FirstOrDefault(p => p.Bookmarks.FirstOrDefault(b => b.Id == bookmarkId) != null);
+            return this.GetAll().FirstOrDefault(p => p.Bookmarks.FirstOrDefault(b => b.Id == bookmarkId) != null);
         }
 
         public IQueryable<Progress> GetByReaderId(int readerId)
         {
-            return this.DbSet.Include("Bookmarks").Where(p => p.Reader.Id == readerId);
+            return this.GetAll().Where(p => p.Reader.Id == readerId);
         }
 
         public Progress GetByOLId(string oLId)
         {
-            return this.DbSet.Include("Bookmarks").FirstOrDefault(p => string.Compare(p.OLId, oLId, true) == 0);
+            return this.GetAll().FirstOrDefault(p => string.Compare(p.OLId, oLId, true) == 0);
         }
     }
 }

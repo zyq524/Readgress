@@ -73,7 +73,7 @@ namespace OpenLibrary
             }
 
             // OpenLibrary is friendly with the book title whose first character is captial. 
-            title = title.Replace(title[0], title.ToUpper()[0]);
+            title = title[0].ToString().ToUpper() + title.Substring(1);
 
             var uri = baseUrl + "things?query={\"type\":\"\\/type\\/edition\",\"title~\":\"" + title + "*\"}&prettyprint=true&text=true";
 

@@ -8,6 +8,7 @@ namespace Readgress.Models
     {
         [Key]
         public int Id { get; set; }
+        public int ProgressId { get; set; }
         public int PageNumber { get; set; }
         public DateTime CreatedOn { get; set; }
         
