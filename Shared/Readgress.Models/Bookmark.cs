@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Readgress.Models
@@ -10,6 +11,7 @@ namespace Readgress.Models
         public int PageNumber { get; set; }
         public DateTime CreatedOn { get; set; }
         
+        [JsonIgnore]
         public Progress Progress { get; set; }
     }
 }

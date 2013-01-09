@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Readgress.Models
@@ -17,6 +18,7 @@ namespace Readgress.Models
 
         public bool IsFinished { get; set; }
 
+        [JsonIgnore]
         public Reader Reader { get; set; }
         public ICollection<Bookmark> Bookmarks { get; set; }
     }

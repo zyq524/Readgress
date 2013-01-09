@@ -20,6 +20,12 @@ namespace Readgress.Web
             // To disable tracing in your application, please comment out or remove the following line of code
             // For more information, refer to: http://www.asp.net/web-api
             config.EnableSystemDiagnosticsTracing();
+
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling =
+                Newtonsoft.Json.PreserveReferencesHandling.Objects;
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

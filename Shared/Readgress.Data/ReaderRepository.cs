@@ -1,11 +1,7 @@
 ﻿using Readgress.Data.Contracts;
 using Readgress.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Readgress.Data
 {
@@ -13,5 +9,9 @@ namespace Readgress.Data
     {
         public ReaderRepository(DbContext context) : base(context) { }
 
+        public override IQueryable<Reader> GetAll()
+        {
+            return base.GetAll().Include("Progresses.Bookmarks");
+        }
     }
 }
