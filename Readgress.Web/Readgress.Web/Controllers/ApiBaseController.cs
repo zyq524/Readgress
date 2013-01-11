@@ -12,14 +12,14 @@ namespace Readgress.Web.Controllers
         //
         //// base ApiController is IDisposable
         //// Dispose of the repository if it is IDisposable
-        protected override void Dispose(bool disposing)
-        {
-            if (Uow != null && Uow is IDisposable)
-            {
-                ((IDisposable)Uow).Dispose();
-                Uow = null;
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (Uow != null && Uow is IDisposable)
+        //    {
+        //        ((IDisposable)Uow).Dispose();
+        //        Uow = null;
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

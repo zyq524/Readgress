@@ -5,6 +5,8 @@ using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using Readgress.Web.Models;
+using Readgress.Data.SampleData;
+using Readgress.Data;
 
 namespace Readgress.Web.Filters
 {
@@ -25,11 +27,11 @@ namespace Readgress.Web.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<ReadgressDbContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new ReadgressDbContext())
                     {
                         if (!context.Database.Exists())
                         {
@@ -38,7 +40,7 @@ namespace Readgress.Web.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("ReadgressDbContext", "Reader", "Id", "UserName", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

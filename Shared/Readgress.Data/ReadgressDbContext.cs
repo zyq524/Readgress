@@ -9,10 +9,10 @@ namespace Readgress.Data
     public class ReadgressDbContext : DbContext
     {
         // ToDo: Move Initializer to Global.asax; don't want dependence on SampleData
-        static ReadgressDbContext()
-        {
-            Database.SetInitializer(new ReadgressDatabaseInitializer());
-        }
+        //static ReadgressDbContext()
+        //{
+        //    Database.SetInitializer(new ReadgressDatabaseInitializer());
+        //}
 
         public ReadgressDbContext()
             : base(nameOrConnectionString: "ReadgressDbContext") 

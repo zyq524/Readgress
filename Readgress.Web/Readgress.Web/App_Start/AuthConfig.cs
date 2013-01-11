@@ -22,9 +22,14 @@ namespace Readgress.Web
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            Dictionary<string, object> FacebooksocialData = new Dictionary<string, object>();
+            FacebooksocialData.Add("Icon", "Images/facebook.png");
+
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "327334420706146",
+                appSecret: "c4b24ab6f876cce03ab2026474a0115b",
+                displayName: "Facebook",
+                extraData: FacebooksocialData);
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }

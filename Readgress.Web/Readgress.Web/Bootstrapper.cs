@@ -3,6 +3,7 @@ using Readgress.Data;
 using Readgress.Data.Contracts;
 using Readgress.Data.Helpers;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace Readgress.Web
 {
@@ -11,6 +12,7 @@ namespace Readgress.Web
         public static void Initialise()
         {
             var container = BuildUnityContainer();
+            DependencyResolver.SetResolver(new Unity.Mvc3.UnityDependencyResolver(container));
 
             GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
         }
@@ -22,7 +24,7 @@ namespace Readgress.Web
             //Unity by default picks the constructor with the most parameters. We have to tell unity to use a different one explicitly like this:
             container.RegisterType<RepositoryFactories>(new InjectionConstructor());
             container.RegisterType<IRepositoryProvider, RepositoryProvider>();
-            container.RegisterType<IReadgressUow, ReadgressUow>(new HierarchicalLifetimeManager());
+            container.RegisterType<IReadgressUow, ReadgressUow>(new PerResolveLifetimeManager());
 
             return container;
         }
