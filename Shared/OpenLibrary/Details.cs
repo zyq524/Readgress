@@ -52,7 +52,7 @@ namespace OpenLibrary
                 using (var webClient = new WebClient())
                 {
                     var response = JsonConvert.DeserializeObject<Dictionary<string, BookData>>(webClient.DownloadString(getUri));
-                    if (response != null && response.Values.Count() > 0)
+                    if (response.Count() > 0)
                     {
                         books = new List<BookData>();
                         foreach (var value in response.Values)
@@ -136,7 +136,7 @@ namespace OpenLibrary
                 {
                     var response = await httpClient.GetAsync(getUri);
                     var bookDetails = JsonConvert.DeserializeObject<Dictionary<string, BookData>>(await response.Content.ReadAsStringAsync());
-                    if (bookDetails != null && bookDetails.Values.Count() > 0)
+                    if (bookDetails.Count() > 0)
                     {
                         books = new List<BookData>();
                         foreach (var value in bookDetails.Values)

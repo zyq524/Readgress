@@ -119,6 +119,24 @@ namespace OpenLibrary.UnitTests
         }
 
         [TestMethod]
+        public void FindBooksByOLIDs_WithEmptyOLIDs_ReturnsEmpty()
+        {
+
+            List<BookData> actual = sut.FindBooksByOLIDs(new List<string>());
+
+            Assert.IsTrue(actual.Count == 0);
+        }
+
+        [TestMethod]
+        public void FindBooksByOLIDs_WithInvalidOLID_ReturnsEmpty()
+        {
+
+            List<BookData> actual = sut.FindBooksByOLIDs(new List<string>() { "123" });
+
+            Assert.IsTrue(actual.Count == 0);
+        }
+
+        [TestMethod]
         public async Task FindOLIDsByTitleAsync_WithValidTitle_ReturnsOLIDs()
         {
             string title = "Python Essential Reference";
@@ -224,6 +242,24 @@ namespace OpenLibrary.UnitTests
         {
 
             List<BookData> actual = await sut.FindBooksByOLIDsAsync(null);
+        }
+
+        [TestMethod]
+        public async Task FindBooksByOLIDsAsync_WithEmptyOLIDs_ReturnsEmpty()
+        {
+
+            List<BookData> actual = await sut.FindBooksByOLIDsAsync(new List<string>());
+
+            Assert.IsTrue(actual.Count == 0);
+        }
+
+        [TestMethod]
+        public async Task FindBooksByOLIDsAsync_WithInvalidOLID_ReturnsEmpty()
+        {
+
+            List<BookData> actual = await sut.FindBooksByOLIDsAsync(new List<string>() { "123" });
+
+            Assert.IsTrue(actual.Count == 0);
         }
     }
 }

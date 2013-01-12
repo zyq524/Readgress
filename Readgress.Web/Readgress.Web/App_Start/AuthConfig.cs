@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.Web.WebPages.OAuth;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using Readgress.Web.Models;
 
 namespace Readgress.Web
 {

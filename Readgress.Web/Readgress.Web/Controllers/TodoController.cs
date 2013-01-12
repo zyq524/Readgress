@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Readgress.Web.Models;
+using System;
 using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Readgress.Web.Models;
 
 namespace Readgress.Web.Controllers
 {

@@ -220,24 +220,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ApiBaseController.cs" />
-    <Compile Include="Controllers\BooksController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProgressesController.cs" />
-    <Compile Include="Controllers\ReadersController.cs" />
-    <Compile Include="Controllers\TodoController.cs" />
-    <Compile Include="Controllers\TodoListController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\TodoItemDto.cs" />
-    <Compile Include="Models\TodoListDto.cs" />
-    <Compile Include="Models\TodoList.cs" />
-    <Compile Include="Models\TodoItem.cs" />
-    <Compile Include="Models\TodoItemContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -387,10 +372,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\OpenLibrary\OpenLibrary.csproj">
-      <Project>{12154ff3-1fe0-471c-8686-da35cfd2e8a7}</Project>
-      <Name>OpenLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Shared\Readgress.Data.Contracts\Readgress.Data.Contracts.csproj">
       <Project>{46d1754c-f68d-430a-a617-4dad5222fce8}</Project>
       <Name>Readgress.Data.Contracts</Name>
@@ -399,9 +380,9 @@
       <Project>{2412c7cd-4d60-4dce-aa9c-67494de5667c}</Project>
       <Name>Readgress.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Readgress.Models\Readgress.Models.csproj">
-      <Project>{31ca48d7-f2eb-493e-8f8d-45c6a8fd0363}</Project>
-      <Name>Readgress.Models</Name>
+    <ProjectReference Include="..\Readgress.PresentationModel\Readgress.PresentationModel.csproj">
+      <Project>{4708b789-a66c-4978-9121-ab752518b8d7}</Project>
+      <Name>Readgress.PresentationModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

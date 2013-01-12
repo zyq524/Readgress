@@ -1,5 +1,5 @@
 ﻿
-namespace Readgress.Web.Models
+namespace Readgress.PresentationModel.Models
 {
     public class ExternalLogin
     {

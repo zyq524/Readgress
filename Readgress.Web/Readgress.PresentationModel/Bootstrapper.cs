@@ -6,7 +6,7 @@ using Readgress.Web.Areas.HelpPage.Controllers;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Readgress.Web
+namespace Readgress.PresentationWeb
 {
     public static class Bootstrapper
     {
