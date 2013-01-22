@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BookData.cs" />
     <Compile Include="Details.cs" />
+    <Compile Include="IDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

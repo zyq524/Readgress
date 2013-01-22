@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +14,7 @@ namespace Readgress.Models
 
         public int Id { get; set; }
 
-        [EmailAddress]
+        [EmailAddress, JsonIgnore]
         public string Email { get; set; }
 
         public string UserName { get; set; }

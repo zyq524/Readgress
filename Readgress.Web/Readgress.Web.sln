@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.Con", "..\Readgre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.PresentationModel", "Readgress.PresentationModel\Readgress.PresentationModel.csproj", "{4708B789-A66C-4978-9121-AB752518B8D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.PresentationModel.UnitTests", "Readgress.PresentationModel.UnitTests\Readgress.PresentationModel.UnitTests.csproj", "{A2E291BD-0166-448C-ADBA-621B09733F4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,12 +66,17 @@ Global
 		{4708B789-A66C-4978-9121-AB752518B8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4708B789-A66C-4978-9121-AB752518B8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4708B789-A66C-4978-9121-AB752518B8D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7C091854-2208-4143-B17E-82CA645158CB} = {50968B37-2C56-47D2-A89A-12ACEB38F92F}
+		{A2E291BD-0166-448C-ADBA-621B09733F4A} = {50968B37-2C56-47D2-A89A-12ACEB38F92F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

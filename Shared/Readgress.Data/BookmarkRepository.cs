@@ -9,14 +9,19 @@ namespace Readgress.Data
     {
         public BookmarkRepository(DbContext context) : base(context) { }
 
+        public override Bookmark GetById(int Id)
+        {
+            return base.GetAll().Include("Progress.Reader").FirstOrDefault(b => b.Id == Id);
+        }
+
         public IQueryable<Bookmark> GetByProgressId(int progressId)
         {
-            return this.DbSet.Where(b => b.Progress.Id == progressId);
+            return this.DbSet.Where(b => b.ProgressId == progressId);
         }
 
         public IQueryable<Bookmark> GetByReaderId(int readerId)
         {
-            return this.DbSet.Where(b => b.Progress.Reader.Id == readerId);
+            return this.DbSet.Where(b => b.Progress.ReaderId == readerId);
         }
 
     }

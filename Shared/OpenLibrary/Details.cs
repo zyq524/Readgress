@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenLibrary
 {
-    public class Details
+    public class Details : IDetails
     {
         private const string baseUrl = "http://www.openlibrary.org/api/";
  

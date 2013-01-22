@@ -12,6 +12,7 @@ namespace Readgress.Models
         }
 
         [Key]
+        [Required]
         public int Id { get; set; }
         public int ReaderId { get; set; }
         //Open Library Id

@@ -1,4 +1,5 @@
 using Microsoft.Practices.Unity;
+using OpenLibrary;
 using Readgress.Data;
 using Readgress.Data.Contracts;
 using Readgress.Data.Helpers;
@@ -28,6 +29,8 @@ namespace Readgress.Web
             container.RegisterType<IReadgressUow, ReadgressUow>(new PerResolveLifetimeManager());
 
             container.RegisterType<HelpController>(new InjectionConstructor());
+
+            container.RegisterType<IDetails, Details>();
             return container;
         }
     }

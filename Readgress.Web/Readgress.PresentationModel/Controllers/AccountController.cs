@@ -12,7 +12,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
 
-namespace Readgress.PresentaionModel.Controllers
+namespace Readgress.PresentationModel.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]

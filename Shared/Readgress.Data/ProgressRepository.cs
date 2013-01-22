@@ -11,8 +11,14 @@ namespace Readgress.Data
 
         public override IQueryable<Progress> GetAll()
         {
-            return base.GetAll().Include("Bookmarks");
+            return base.GetAll().Include("Bookmarks").Include("Reader");
         }
+
+        public override Progress GetById(int Id)
+        {
+            return this.GetAll().FirstOrDefault(p => p.Id == Id);
+        }
+
         public Progress GetByBookmarkId(int bookmarkId)
         {
             return this.GetAll().FirstOrDefault(p => p.Bookmarks.FirstOrDefault(b => b.Id == bookmarkId) != null);
@@ -20,7 +26,7 @@ namespace Readgress.Data
 
         public IQueryable<Progress> GetByReaderId(int readerId)
         {
-            return this.GetAll().Where(p => p.Reader.Id == readerId);
+            return this.GetAll().Where(p => p.ReaderId == readerId);
         }
 
         public Progress GetByOLId(string oLId)

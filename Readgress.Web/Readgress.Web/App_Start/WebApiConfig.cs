@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Validation.Providers;
 
 namespace Readgress.Web
 {
@@ -21,11 +22,14 @@ namespace Readgress.Web
             // For more information, refer to: http://www.asp.net/web-api
             config.EnableSystemDiagnosticsTracing();
 
-            var json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling =
-                Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            //var json = config.Formatters.JsonFormatter;
+            //json.SerializerSettings.PreserveReferencesHandling =
+            //    Newtonsoft.Json.PreserveReferencesHandling.Objects;
 
-            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            //config.Formatters.Remove(config.Formatters.XmlFormatter);
+            GlobalConfiguration.Configuration.Services.RemoveAll(
+                typeof(System.Web.Http.Validation.ModelValidatorProvider),
+                v => v is InvalidModelValidatorProvider);
         }
     }
 }

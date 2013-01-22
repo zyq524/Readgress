@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Readgress.PresentaionModel.Controllers
+namespace Readgress.PresentationModel.Controllers
 {
     public class HomeController : Controller
     {

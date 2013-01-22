@@ -2,7 +2,7 @@
 using System;
 using System.Web.Http;
 
-namespace Readgress.PresentaionModel.Controllers
+namespace Readgress.PresentationModel.Controllers
 {
     public abstract class ApiBaseController : ApiController
     {
