@@ -13,45 +13,50 @@ namespace Readgress.PresentationModel.UnitTests
     public class BooksControllerUnitTests
     {
         private Mock<IDetails> detailsMock;
-        private string oLIdTest;
-        private string titleTest;
+        private BookData bookTest;
 
         [TestInitialize]
         public void Setup()
         {
             detailsMock = new Mock<IDetails>();
-            oLIdTest = "OL3315089M";
-            titleTest = "working effectively with legacy code";
+            bookTest = new BookData()
+            {
+                Title = "WebApi Introdutcion",
+                SubTitle = "For Dummy",
+                Subjects = new List<Subject>() { new Subject() { Name = "IT" } },
+                Authors = new List<Author>() { new Author() { Name = "Microsoft", Url = "www.microsoft.com" } },
+                Url = "www.openlibray.com",
+                Identifiers = new Identifier() { OpenLibrary = new List<string>() { "OL3315082M" } }
+            };
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_WithEmptyDetails_ThrowException()
         {
-            var sut = new BookController(null);
+            BookController sut = new BookController(null);
         }
 
         [TestMethod]
         public void GetByOLId_WithValidOLId_ReturnsOneBook()
         {
-            var expected = new BookData() { Title = titleTest };
-            detailsMock.Setup(d => d.FindBooksByOLIDs(new List<string>(){oLIdTest})).Returns(new List<BookData>(){expected});
+            detailsMock.Setup(d => d.FindBooksByOLIDs(new List<string>(){bookTest.Identifiers.OpenLibrary[0]})).Returns(new List<BookData>(){bookTest});
 
-            var sut = new BookController(detailsMock.Object);
-            var actual = sut.GetByOLId(oLIdTest);
+            BookController sut = new BookController(detailsMock.Object);
+            BookData actual = sut.GetByOLId(bookTest.Identifiers.OpenLibrary[0]);
 
-            Assert.AreSame(expected, actual);
+            Assert.AreSame(bookTest, actual);
         }
 
         [TestMethod]
         public void GetByOLId_WithEmptyOLId_ThrowBadRequest()
         {
-            var sut = new BookController(detailsMock.Object);
             HttpResponseException exception = null;
 
             try
             {
-                var actual = sut.GetByOLId(null);
+                BookController sut = new BookController(detailsMock.Object);
+                BookData actual = sut.GetByOLId(null);
             }
             catch (HttpResponseException ex)
             {
@@ -64,13 +69,14 @@ namespace Readgress.PresentationModel.UnitTests
         [TestMethod]
         public void GetByOLId_WithNonExistingOLId_ThrowNotFound()
         {
-            var sut = new BookController(detailsMock.Object);
-            detailsMock.Setup(d => d.FindBooksByOLIDs(new List<string>() { oLIdTest })).Returns(new List<BookData>());
+            string nonExistingOILd = "OL12345";
+            detailsMock.Setup(d => d.FindBooksByOLIDs(new List<string>() { nonExistingOILd })).Returns(new List<BookData>());
             HttpResponseException exception = null;
 
             try
             {
-                var actual = sut.GetByOLId(oLIdTest);
+                BookController sut = new BookController(detailsMock.Object);
+                BookData actual = sut.GetByOLId(nonExistingOILd);
             }
             catch (HttpResponseException ex)
             {
@@ -83,28 +89,25 @@ namespace Readgress.PresentationModel.UnitTests
         [TestMethod]
         public void GetByTitle_WithValidTitle_ReturnsOneBook()
         {
-            var expected = new List<BookData>() { new BookData() { Title = titleTest } };
-            detailsMock.Setup(d => d.FindBooksByTitle(titleTest)).Returns(expected);
+            detailsMock.Setup(d => d.FindBooksByTitle(bookTest.Title)).Returns(new List<BookData>() { bookTest });
 
-            var sut = new BookController(detailsMock.Object);
-            var actual = sut.GetByTitle(titleTest);
+            BookController sut = new BookController(detailsMock.Object); 
+            List<BookData> actual = sut.GetByTitle(bookTest.Title);
 
             Assert.AreEqual(1, actual.Count);
-            Assert.AreSame(expected, actual);
+            Assert.AreSame(bookTest, actual[0]);
         }
 
         [TestMethod]
         public void GetByTitle_WithValidTitle_ReturnsTwoBooks()
         {
-            var expected = new List<BookData>()
-                            {
-                                new BookData() { Title = titleTest },
-                                new BookData(){ Title = titleTest + " new" }
-                            };
-            detailsMock.Setup(d => d.FindBooksByTitle(titleTest)).Returns(expected);
+            BookData bookTest2 = bookTest;
+            bookTest2.Title += " Version1";
+            List<BookData> expected = new List<BookData>() { bookTest, bookTest2 };
+            detailsMock.Setup(d => d.FindBooksByTitle(bookTest.Title)).Returns(expected);
 
-            var sut = new BookController(detailsMock.Object);
-            var actual = sut.GetByTitle(titleTest);
+            BookController sut = new BookController(detailsMock.Object);
+            List<BookData> actual = sut.GetByTitle(bookTest.Title);
 
             Assert.AreEqual(2, actual.Count);
             Assert.AreSame(expected, actual);
@@ -114,12 +117,12 @@ namespace Readgress.PresentationModel.UnitTests
         [TestMethod]
         public void GetByTitle_WithEmptyTitle_ThrowBadRequest()
         {
-            var sut = new BookController(detailsMock.Object);
             HttpResponseException exception = null;
 
             try
             {
-                var actual = sut.GetByTitle(null);
+                BookController sut = new BookController(detailsMock.Object);
+                List<BookData> actual = sut.GetByTitle(null);
             }
             catch (HttpResponseException ex)
             {
@@ -132,13 +135,14 @@ namespace Readgress.PresentationModel.UnitTests
         [TestMethod]
         public void GetByTitle_WithNonExistingTitle_ThrowNotFound()
         {
-            var sut = new BookController(detailsMock.Object);
-            detailsMock.Setup(d => d.FindBooksByTitle(titleTest)).Returns(new List<BookData>());
+            string nonExistingTitle = "What is this";
+            detailsMock.Setup(d => d.FindBooksByTitle(nonExistingTitle)).Returns(new List<BookData>());
             HttpResponseException exception = null;
 
             try
             {
-                var actual = sut.GetByTitle(titleTest);
+                BookController sut = new BookController(detailsMock.Object);
+                var actual = sut.GetByTitle(nonExistingTitle);
             }
             catch (HttpResponseException ex)
             {
