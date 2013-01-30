@@ -31,16 +31,5 @@ namespace Readgress.PresentationModel.Controllers
             }
             return new ReaderDto(reader);
         }
-
-        // GET api/readers/5
-        //public ReaderDto Get(int id)
-        //{
-        //    var reader = Uow.Readers.GetById(id);
-        //    if (reader == null)
-        //    {
-        //        throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-        //    }
-        //    return new ReaderDto(reader); 
-        //}
     }
 }

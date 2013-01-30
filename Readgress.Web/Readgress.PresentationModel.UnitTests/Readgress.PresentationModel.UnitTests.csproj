@@ -62,6 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaderControllerUnitTests.cs" />
     <Compile Include="ProgressControllerUnitTests.cs" />
+    <Compile Include="BookmarkControllerUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\OpenLibrary\OpenLibrary.csproj">
@@ -71,6 +72,10 @@
     <ProjectReference Include="..\..\Shared\Readgress.Data.Contracts\Readgress.Data.Contracts.csproj">
       <Project>{46d1754c-f68d-430a-a617-4dad5222fce8}</Project>
       <Name>Readgress.Data.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Readgress.Data\Readgress.Data.csproj">
+      <Project>{2412c7cd-4d60-4dce-aa9c-67494de5667c}</Project>
+      <Name>Readgress.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Readgress.Models\Readgress.Models.csproj">
       <Project>{31ca48d7-f2eb-493e-8f8d-45c6a8fd0363}</Project>

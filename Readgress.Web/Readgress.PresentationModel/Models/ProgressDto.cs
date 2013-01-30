@@ -18,7 +18,6 @@ namespace Readgress.PresentationModel.Models
             UserName = progress.Reader.UserName;
             OLId = progress.OLId;
             IsFinished = progress.IsFinished;
-            //Bookmarks = progress.Bookmarks;
         }
 
         [Key]
@@ -36,8 +35,6 @@ namespace Readgress.PresentationModel.Models
 
         public bool IsFinished { get; set; }
 
-        //public ICollection<Bookmark> Bookmarks { get; set; }
-
         public Progress ToEntity()
         {
             return new Progress
@@ -46,7 +43,6 @@ namespace Readgress.PresentationModel.Models
                 ReaderId = ReaderId,
                 OLId = OLId,
                 IsFinished = IsFinished,
-                //Bookmarks = Bookmarks
             };
         }
     }

@@ -46,9 +46,9 @@ namespace Readgress.PresentationModel.Controllers
         }
 
         //POST api/progress
-        public HttpResponseMessage PostProgress([FromBody]ProgressDto progressDto)
+        public HttpResponseMessage Post([FromBody]ProgressDto progressDto)
         {
-            if (progressDto!=null && ModelState.IsValid)
+            if (progressDto != null && ModelState.IsValid)
             {
                 if (progressDto.UserName != User.Identity.Name)
                 {
@@ -61,14 +61,17 @@ namespace Readgress.PresentationModel.Controllers
                     Uow.Progresses.Add(progress);
                     Uow.Commit();
 
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, new ProgressDto(progress));
-                    response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = progress.Id }));
+                    progressDto.Id = progress.Id;
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, progressDto);
+
+                    string uri = Url.Link("DefaultApi", new { id = progress.Id });
+                    response.Headers.Location = new Uri(uri);
                     return response;
                 }
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
         }
 
@@ -90,7 +93,7 @@ namespace Readgress.PresentationModel.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Readgress.PresentationModel.Models
 
         public ReaderDto(Reader reader)
         {
-            ReaderId = reader.Id;
+            Id = reader.Id;
             UserName = reader.UserName;
             FullName = reader.FullName;
             Gender = reader.Gender;
@@ -20,7 +20,7 @@ namespace Readgress.PresentationModel.Models
             CreatedOn = reader.CreatedOn;
         }
 
-        public int ReaderId { get; set; }
+        public int Id { get; set; }
 
         public string UserName { get; set; }
 

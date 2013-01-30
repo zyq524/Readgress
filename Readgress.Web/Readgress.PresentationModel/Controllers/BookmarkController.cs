@@ -56,10 +56,7 @@ namespace Readgress.PresentationModel.Controllers
             var bookmarks = Uow.Bookmarks.GetByProgressId(progressId)
                 .AsEnumerable()
                 .Select(b => new BookmarkDto(b));
-            if (bookmarks.Count() == 0)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+
             return bookmarks;
         }
 
@@ -84,14 +81,15 @@ namespace Readgress.PresentationModel.Controllers
                     Uow.Bookmarks.Add(bookmark);
                     Uow.Commit();
 
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, new BookmarkDto(bookmark));
+                    bookmarkDto.Id = bookmarkDto.Id;
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, bookmarkDto);
                     response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = bookmark.Id }));
                     return response;
                 }
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
         }
 
@@ -112,7 +110,7 @@ namespace Readgress.PresentationModel.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
         }
 
