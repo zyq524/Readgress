@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Readgress.PresentationModel.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ReaderController : ApiBaseController
     {
         public ReaderController(IReadgressUow uow)

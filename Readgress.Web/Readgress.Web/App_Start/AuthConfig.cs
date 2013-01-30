@@ -1,5 +1,6 @@
 ﻿using Microsoft.Web.WebPages.OAuth;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Readgress.Web
 {
@@ -22,8 +23,8 @@ namespace Readgress.Web
             FacebooksocialData.Add("Icon", "Images/facebook.png");
 
             OAuthWebSecurity.RegisterFacebookClient(
-                appId: "327334420706146",
-                appSecret: "c4b24ab6f876cce03ab2026474a0115b",
+                appId: ConfigurationManager.AppSettings["appId"],
+                appSecret: ConfigurationManager.AppSettings["appSecret"],
                 displayName: "Facebook",
                 extraData: FacebooksocialData);
 

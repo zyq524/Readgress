@@ -110,3 +110,5 @@ UpgradeLog*.XML
 #Database File
 *.mdf
 *.ldf
+/Readgress.Web/Readgress.Web/Properties/PublishProfiles/*.pubxml
+/Readgress.Web/Readgress.Web/Properties/PublishProfiles/*.pubxml
