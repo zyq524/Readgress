@@ -20,7 +20,7 @@ namespace Readgress.Web
             //    consumerSecret: "");
 
             Dictionary<string, object> FacebooksocialData = new Dictionary<string, object>();
-            FacebooksocialData.Add("Icon", "Images/facebook.png");
+            FacebooksocialData.Add("Icon", "Images/fb_login.png");
 
             OAuthWebSecurity.RegisterFacebookClient(
                 appId: ConfigurationManager.AppSettings["appId"],

@@ -1,16 +1,17 @@
-﻿
-@{
+﻿@if (@User.Identity.IsAuthenticated)
+{
+    ViewBag.Title = "Readgress";
+}
+else
+{
     ViewBag.Title = "Readgress - My Reading Progress";
 }
 
-<header>
-    <h1>@ViewBag.Title</h1>
-</header>
 
 <div id="main-content">
 @if (@User.Identity.IsAuthenticated)
 {
-    <p class="error" data-bind="text: error"></p>@*
+    @*<p class="error" data-bind="text: error"></p>
     <button data-bind="click: addTodoList">Add Todo list</button>
 
     <section id="lists" data-bind="foreach: todoLists, visible: todoLists().length > 0">
@@ -42,22 +43,11 @@
 }
 else
 {
-    <div class="todoList" id="loginPanel">
-@*        <section id="localLoginPanel">
-            <h2>Log in</h2>
-            @Html.Partial("_Login")
-        </section>*@
+    <div class="" id="loginPanel">
         <section id="socialLoginPanel">
-            <h2>Log in using another service</h2>
             @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
         </section>
-@*        <p>First time here? <a id="showRegister">Sign up</a></p>*@
-    </div>@*
-    <div class="todoList" id="registerPanel">
-        <h2>Sign up</h2>
-        @Html.Partial("_Register")
-        <p>Already signed up? <a id="showLogin">Log in</a></p>
-    </div>*@
+    </div>
 }
 </div>
 
