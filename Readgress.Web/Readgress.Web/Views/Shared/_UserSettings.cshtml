@@ -1,9 +1,11 @@
 ﻿@if (Request.IsAuthenticated) {
-    <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
-        @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-        }
-    </text>
+    <ul class="nav nav-pills pull-right">
+        <li><img src="http://graph.facebook.com/722621035/picture" alt="Yuqing Zhang"  title="Yuqing Zhang"/></li>
+        <li>       
+        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </li>
+    </ul>
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" })) {
+        @Html.AntiForgeryToken()
+    }
 }

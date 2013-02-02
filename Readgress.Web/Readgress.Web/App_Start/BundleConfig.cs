@@ -42,7 +42,7 @@ namespace Readgress.Web
                 "~/Content/bootstrap.css",
                 "~/Content/bootstrap-responsive.css",
                 "~/Content/Site.css",
-                "~/Content/TodoList.css"));
+                "~/Content/Readgress.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

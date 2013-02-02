@@ -3,8 +3,7 @@
 @if (Model.Count == 0)
 {
     <div class="message-info">
-        <p>There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=252166">this article</a>
-        for details on setting up this ASP.NET application to support logging in via external services.</p>
+        <p>There are no external authentication services configured. </p>
     </div>
 }
 else
@@ -16,7 +15,6 @@ else
         <p>
         @foreach (AuthenticationClientData p in Model)
         {
-            @*<img src="@p.ExtraData["Icon"]" alt="Icon for @p.DisplayName" />*@
             <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">
                 <img src="@p.ExtraData["Icon"]" alt="Icon for @p.DisplayName" />
             </button>

@@ -1,0 +1,14 @@
+﻿.nav-pills > li > img {
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-right: 2px;
+    line-height: 14px;
+
+    border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+}

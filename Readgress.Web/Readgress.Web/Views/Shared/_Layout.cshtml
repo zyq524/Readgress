@@ -28,19 +28,12 @@
     <div class="container-medium">
 
       <div class="masthead">
-@*        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>*@
-        <h3 class="muted">@ViewBag.Title</h3>
+          @Html.Partial("_UserSettings")
+          <h3 class="muted">@ViewBag.Title</h3>
       </div>
 
       <hr>
-      
-        <div id="userSettings">
-          @Html.Partial("_UserSettings")
-        </div>
+     
         @RenderBody()
 
 
