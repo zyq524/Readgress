@@ -8,18 +8,20 @@
 }
 else
 {
+        
     using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
     {
-    @Html.AntiForgeryToken()
-    <fieldset id="socialLoginList">
-        <p>
-        @foreach (AuthenticationClientData p in Model)
-        {
-            <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">
-                <img src="@p.ExtraData["Icon"]" alt="Icon for @p.DisplayName" />
-            </button>
-        }
-        </p>
-    </fieldset>
+        @Html.AntiForgeryToken()
+        <fieldset id="socialLoginList">
+            <legend>Readgress - My Reading Progress</legend>
+            <p>
+            @foreach (AuthenticationClientData p in Model)
+            {
+                <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">
+                    <img src="@p.ExtraData["Icon"]" alt="Icon for @p.DisplayName" />
+                </button>
+            }
+            </p>
+        </fieldset>
     }
 }

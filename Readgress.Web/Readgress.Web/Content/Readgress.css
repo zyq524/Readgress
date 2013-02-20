@@ -1,4 +1,13 @@
-﻿.nav-pills > li > img {
+﻿.masthead {
+    height: 60px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    background: url(../Images/header-bg.png) repeat-x white;
+}
+
+#loginPanel{
+    padding-top: 25px;
+}
+.nav-pills > li > img {
     padding-top: 4px;
     padding-bottom: 4px;
 
@@ -11,4 +20,45 @@
     border-radius: 50px;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
+}
+
+body .app #app{
+    display: block;
+}
+
+#sidebar {
+    padding-top: 22px;
+    margin-right: -20px;
+    width: 240px;
+    background: url("../Images/bg-side.png") right -4px no-repeat;
+}
+
+#sidebar #lists {
+    padding: 0 0 10px 0;
+    font-size: 14px;
+    -webkit-transition: background .15s linear;
+    font-weight: 600;
+    top: 0;
+    width: 238px;
+    height: 100%;
+    overflow: auto;
+}
+
+ul.unstyled, ol.unstyled {
+margin-left: 0;
+list-style: none;
+}
+
+.main {
+    border-top: 1px solid #eee;
+}
+
+.row .span9{
+    width: 700px;
+}
+
+#book {
+    min-height: 420px;
+    padding-bottom: 20px;
+    position: relative;
 }

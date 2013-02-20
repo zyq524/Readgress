@@ -21,14 +21,11 @@ namespace Readgress.Web
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                         "~/Scripts/knockout-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
-                "~/Scripts/app/ajaxlogin.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/todo").Include(
-                "~/Scripts/app/todo.bindings.js",
-                "~/Scripts/app/todo.datacontext.js",
-                "~/Scripts/app/todo.model.js",
-                "~/Scripts/app/todo.viewmodel.js"));
+            bundles.Add(new ScriptBundle("~/bundles/readgress").Include(
+                "~/Scripts/app/readgress.bindings.js",
+                "~/Scripts/app/readgress.datacontext.js",
+                "~/Scripts/app/readgress.model.js",
+                "~/Scripts/app/readgress.viewmodel.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                 "~/Scripts/bootstrap.js"));

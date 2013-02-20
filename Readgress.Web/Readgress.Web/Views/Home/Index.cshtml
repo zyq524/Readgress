@@ -1,15 +1,34 @@
-﻿@if (@User.Identity.IsAuthenticated)
-{
+﻿@{
     ViewBag.Title = "Readgress";
-}
-else
-{
-    ViewBag.Title = "Readgress - My Reading Progress";
 }
 
 <div id="main-content">
 @if (@User.Identity.IsAuthenticated)
 {
+    <div class="clearfix">
+        <div id="app">
+            <div class="row">
+                <div id="sidebar" class="span3">
+                    <ul id="lists" class="unstyled">
+                        <li>Reading Books</li>
+                        <li>Finsihed Books</li>
+                        <li>Search Books</li>
+                    </ul>
+                </div>
+                <div class="main span9">
+                    <form data-bind="submit: searchBooks">
+                      <input name="q" autofocus data-bind="value: searchTitle">
+                      <input type="submit" value="Search">
+                    </form>
+                    <div id="book">
+                        <span data-bind="text: books().length"></span>
+
+                    </div>
+                    @Html.Partial("_Footer")
+                </div>
+            </div>
+        </div>
+    </div>
     @*<p class="error" data-bind="text: error"></p>
     <button data-bind="click: addTodoList">Add Todo list</button>
 
@@ -42,7 +61,7 @@ else
 }
 else
 {
-    <div class="" id="loginPanel">
+    <div id="loginPanel">
         <section id="socialLoginPanel">
             @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
         </section>
@@ -50,11 +69,16 @@ else
 }
 </div>
 
+@if (!@User.Identity.IsAuthenticated)
+{
+    @Html.Partial("_Footer")
+}
+
 @if (@User.Identity.IsAuthenticated)
 {
     @section scripts {
         @Scripts.Render("~/bundles/knockout")
         @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/todo")
+        @Scripts.Render("~/bundles/readgress")
     }
 }
