@@ -386,6 +386,7 @@
     <Content Include="amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\readgress - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\readgress - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\readgress - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
