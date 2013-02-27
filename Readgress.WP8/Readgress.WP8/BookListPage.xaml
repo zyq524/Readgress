@@ -1,0 +1,79 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Readgress.WP8.BookListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c4f="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
+    xmlns:Converters="clr-namespace:Coding4Fun.Toolkit.Controls.Converters;assembly=Coding4Fun.Toolkit.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:vm="clr-namespace:Readgress.WP8.ViewModels"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <!-- Resources for Books LongListMultiSelector -->  
+        <DataTemplate x:Key="BookItemTemplate">
+            <Grid Margin="12,8,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Width="110" Height="150" Source="{Binding Cover_Medium}" 
+                       VerticalAlignment="Top">
+                </Image>
+                <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding TrimmedTitle}" Style="{StaticResource PhoneTextLargeStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="12,-12,12,6"/>
+                    <TextBlock Text="{Binding SubTitle}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" TextTrimming="WordEllipsis"  FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Author(s):" Style="{StaticResource PhoneTextSmallStyle}"/>
+                        <TextBlock Text="{Binding AuthorsStr}" Style="{StaticResource PhoneTextSmallStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="0,0,12,0" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </phone:PhoneApplicationPage.Resources>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="0" Margin="12,0,12,0">
+            <c4f:ProgressOverlay 
+                    Name="SearchProgressOverlay" 
+                    Visibility="Visible">
+                <c4f:ProgressOverlay.Resources>
+                    <Converters:VisibilityToBooleanConverter x:Key="VisToBoolConverter" />
+                </c4f:ProgressOverlay.Resources>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">searching</TextBlock>
+                    <ProgressBar
+                            IsIndeterminate="{Binding ElementName=SearchProgressOverlay, 
+                            Path=Visibility,
+                            Converter={StaticResource VisToBoolConverter}}" Foreground="#FFFFFF"
+                            />
+                </StackPanel>
+            </c4f:ProgressOverlay>
+            <toolkit:LongListMultiSelector x:Name="BookList" Background="Transparent"
+                                            Margin="0,-8,0,0"
+                                            LayoutMode="List"
+                                            SelectionChanged="OnBookListSelectionChanged"
+                                            IsSelectionEnabledChanged="OnBookListIsSelectionEnabledChanged"
+                                            ItemTemplate="{StaticResource BookItemTemplate}"
+                                            />
+        </Grid>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="False" IsMenuEnabled="True">
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
