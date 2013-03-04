@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Readgress.WP8.Utils;
 
 namespace Readgress.WP8
 {
@@ -26,6 +27,12 @@ namespace Readgress.WP8
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            StorageSettings settings = new StorageSettings();
+            if (string.IsNullOrEmpty(settings.FacebookAccessToken))
+            {
+                NavigationService.Navigate(new Uri("/FacebookLoginPage.xaml", UriKind.Relative));
+            }
+
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
