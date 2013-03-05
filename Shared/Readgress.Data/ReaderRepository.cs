@@ -11,7 +11,7 @@ namespace Readgress.Data
 
         public override IQueryable<Reader> GetAll()
         {
-            return base.GetAll().Include("Progresses.Bookmarks");
+            return base.GetAll();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Readgress.Data;
 
 namespace Readgress.Web
 {
@@ -16,7 +17,7 @@ namespace Readgress.Web
         {
             AreaRegistration.RegisterAllAreas();
 
-            Database.SetInitializer(new ReadgressDatabaseInitializer());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ReadgressDbContext>());
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
