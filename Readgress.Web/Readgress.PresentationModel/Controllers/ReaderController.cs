@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Readgress.PresentationModel.Filters;
 
 namespace Readgress.PresentationModel.Controllers
 {
     //[Authorize]
+    [FBAuthorize]
     public class ReaderController : ApiBaseController
     {
         public ReaderController(IReadgressUow uow)

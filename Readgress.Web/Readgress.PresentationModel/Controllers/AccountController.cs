@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
+using Readgress.PresentationModel.Utils;
 
 namespace Readgress.PresentationModel.Controllers
 {
@@ -18,15 +19,15 @@ namespace Readgress.PresentationModel.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        protected IReadgressUow Uow { get; set; }
+        protected IFacebookLogin FBLogin { get; set; }
 
-        public AccountController(IReadgressUow uow)
+        public AccountController(IFacebookLogin fbLogin)
         {
-            if (uow == null)
+            if (fbLogin == null)
             {
-                throw new ArgumentNullException("uow");
+                throw new ArgumentNullException("fbLogin");
             }
-            Uow = uow;
+            FBLogin = fbLogin;
         }
 
         // POST: /Account/LogOff
@@ -76,29 +77,8 @@ namespace Readgress.PresentationModel.Controllers
             }
             else
             {
-                var client = new FacebookClient(result.ExtraData["accesstoken"]);
-                dynamic me = client.Get("me");
-                string userName = me.username;
-
-                var reader = this.Uow.Readers.GetAll().FirstOrDefault(r => r.UserName.ToLower() == userName.ToLower());
-                // Check if reader already exists
-                if (reader == null)
+                if(FBLogin.Login(result.ExtraData["accesstoken"]))
                 {
-                    this.Uow.Readers.Add(new Reader
-                    {
-                        UserName = userName,
-                        Email = me.email,
-                        FirstName = me.first_name,
-                        LastName = me.last_name,
-                        Gender = me.gender,
-                        Link = me.link,
-                        CreatedOn = DateTime.Now
-                    });
-                    this.Uow.Commit();
-
-                    OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, userName);
-                    OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false);
-
                     return RedirectToLocal(returnUrl);
                 }
 

@@ -1,11 +1,12 @@
+using System.Web.Http;
+using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using OpenLibrary;
 using Readgress.Data;
 using Readgress.Data.Contracts;
 using Readgress.Data.Helpers;
+using Readgress.PresentationModel.Utils;
 using Readgress.Web.Areas.HelpPage.Controllers;
-using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Readgress.Web
 {
@@ -27,6 +28,7 @@ namespace Readgress.Web
             container.RegisterType<RepositoryFactories>(new InjectionConstructor());
             container.RegisterType<IRepositoryProvider, RepositoryProvider>();
             container.RegisterType<IReadgressUow, ReadgressUow>(new PerResolveLifetimeManager());
+            container.RegisterType<IFacebookLogin, FacebookLogin>();
 
             container.RegisterType<HelpController>(new InjectionConstructor());
 

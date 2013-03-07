@@ -1,16 +1,17 @@
-﻿using Readgress.Data.Contracts;
-using Readgress.Models;
-using Readgress.PresentationModel.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Readgress.Data.Contracts;
+using Readgress.Models;
+using Readgress.PresentationModel.Filters;
+using Readgress.PresentationModel.Models;
 
 namespace Readgress.PresentationModel.Controllers
 {
-    [Authorize]
+    [FBAuthorize]
     public class ProgressController : ApiBaseController
     {
         public ProgressController(IReadgressUow uow)
