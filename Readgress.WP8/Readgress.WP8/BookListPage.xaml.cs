@@ -12,6 +12,7 @@ using Readgress.WP8.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections;
+using Readgress.WP8.Utils;
 
 namespace Readgress.WP8
 {
@@ -38,23 +39,23 @@ namespace Readgress.WP8
         {
             if (!string.IsNullOrEmpty(title))
             {
-                string openLibraryBooksUrl = @"http://readgress.azurewebsites.net/api/book/?Title=" + title;
+                string openLibraryBooksUrl = ReadgressAPIEndpoints.OpenLibraryBooksUrl + title;
 
                 try
                 {
                     WebClient webClient = new WebClient();
-                    webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(webClient_DownloadStringCompleted);
+                    webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(WebClient_DownloadStringCompleted);
                     webClient.DownloadStringAsync(new Uri(openLibraryBooksUrl));
 
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("Service is not available. Try it later.");
                 }
             }
         }
 
-        void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error != null)
             {

@@ -8,12 +8,13 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Facebook;
+using Readgress.WP8.Utils;
 
 namespace Readgress.WP8
 {
     public partial class FacebookLoginPage : PhoneApplicationPage
     {
-        private const string AppId = "";
+        private const string AppId = "115878675265829";
 
         /// <summary>
         /// Extended permissions is a comma separated list of permissions to ask the user.
@@ -66,7 +67,13 @@ namespace Readgress.WP8
             if (oauthResult.IsSuccess)
             {
                 var accessToken = oauthResult.AccessToken;
-                LoginSucceded(accessToken);
+
+                StorageSettings settings = new StorageSettings();
+                settings.FacebookAccessToken = oauthResult.AccessToken;
+                settings.FacebookAccessTokenExpires = oauthResult.Expires;
+
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+
             }
             else
             {
@@ -75,9 +82,9 @@ namespace Readgress.WP8
             }
         }
 
-        private void LoginSucceded(string accessToken)
+        private void LoginSucceded(FacebookOAuthResult oauthResult)
         {
-            var fb = new FacebookClient(accessToken);
+            var fb = new FacebookClient(oauthResult.AccessToken);
 
             fb.GetCompleted += (o, e) =>
             {
@@ -87,15 +94,13 @@ namespace Readgress.WP8
                     return;
                 }
 
-                var result = (IDictionary<string, object>)e.GetResultData();
-                var id = (string)result["id"];
+                StorageSettings settings = new StorageSettings();
+                settings.FacebookAccessToken = oauthResult.AccessToken;
+                settings.FacebookAccessTokenExpires = oauthResult.Expires;
 
-                var url = string.Format("/Pages/FacebookInfoPage.xaml?access_token={0}&id={1}", accessToken, id);
 
-                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri(url, UriKind.Relative)));
+                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative)));
             };
-
-            fb.GetAsync("me?fields=id");
         }
     }
 }

@@ -105,8 +105,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\GroupToBackgroundBrushValueConverter.cs" />
-    <Compile Include="Models\GroupToForegroundBrushValueConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -116,9 +114,14 @@
     <Compile Include="SearchBookPage.xaml.cs">
       <DependentUpon>SearchBookPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ReadgressAPIEndpoints.cs" />
     <Compile Include="Utils\StorageSettings.cs" />
+    <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -145,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -161,6 +168,7 @@
     <Content Include="Assets\cover_l.png" />
     <Content Include="Assets\cover_m.png" />
     <Content Include="Assets\cover_s.png" />
+    <Content Include="Assets\fb_login.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />

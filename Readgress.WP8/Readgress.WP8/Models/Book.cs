@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Readgress.WP8.Models
 {
-    public class Book 
+    public class Book
     {
         public string Title { get; set; }
         public string SubTitle { get; set; }
@@ -15,6 +16,9 @@ namespace Readgress.WP8.Models
         public List<Subject> Subjects;
         public List<Author> Authors;
         public List<Publisher> Publishers;
+
+        public bool IsFinished { get; set; }
+        public List<Bookmark> Bookmarks { get; set; }
 
         public string TrimmedTitle
         {
@@ -105,6 +109,12 @@ namespace Readgress.WP8.Models
     public class Publisher
     {
         public string Name;
+    }
+
+    public class Bookmark
+    {
+        public int PageNumber { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 
 }

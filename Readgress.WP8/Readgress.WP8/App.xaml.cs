@@ -16,7 +16,7 @@ namespace Readgress.WP8
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
-
+        private static BookViewModel bookViewModel = null;
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
@@ -30,6 +30,18 @@ namespace Readgress.WP8
                     viewModel = new MainViewModel();
 
                 return viewModel;
+            }
+        }
+
+        public static BookViewModel BookViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (bookViewModel == null)
+                    bookViewModel = new BookViewModel();
+
+                return bookViewModel;
             }
         }
 
@@ -89,9 +101,10 @@ namespace Readgress.WP8
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
+
+            if (App.bookViewModel.IsDataLoading)
             {
-                App.ViewModel.LoadData();
+                App.bookViewModel.LoadData();
             }
         }
 

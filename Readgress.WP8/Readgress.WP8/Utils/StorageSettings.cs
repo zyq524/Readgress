@@ -85,7 +85,8 @@ namespace Readgress.WP8.Utils
         {
             get
             {
-                return GetValueOrDefault(FbAccessTokenKeyName, FbAccessTokenDefault).ToString();
+                var token = GetValueOrDefault(FbAccessTokenKeyName, FbAccessTokenDefault);
+                return token == null ? string.Empty : token.ToString();
             }
             set
             {
