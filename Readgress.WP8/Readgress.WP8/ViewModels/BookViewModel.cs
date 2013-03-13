@@ -19,7 +19,8 @@ namespace Readgress.WP8.ViewModels
         private bool isDataLoading = true;
         private bool hasNoReadingBook = false;
         private bool hasNoFinishedBook = false;
-
+        private bool hasTooManyReadingBooks = false;
+        
         public BookViewModel()
         {
             this.FinsihedBooks = new ObservableCollection<Book>();
@@ -88,10 +89,23 @@ namespace Readgress.WP8.ViewModels
             }
         }
 
+        public bool HasTooManyReadingBooks
+        {
+            get
+            {
+                return this.hasTooManyReadingBooks;
+            }
+            private set
+            {
+                this.hasTooManyReadingBooks = value;
+                NotifyPropertyChanged("HasTooManyReadingBooks");
+            }
+        }
+
         public void LoadData()
         {
-        //    ReadingBooks.Add(new Book() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461563-M.jpg" }, IsFinished = false });
-        //    ReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
+            //ReadingBooks.Add(new Book() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461563-M.jpg" }, IsFinished = false });
+            //ReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
 
             //ReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
             //ReadingBooks.Add(new Book() { Title = "Microsoft ASP.NET 2.0 Step By Step", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461594-M.jpg" }, IsFinished = false });
@@ -129,14 +143,16 @@ namespace Readgress.WP8.ViewModels
             FinsihedBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = true });
             FinsihedBooks.Add(new Book() { Title = "Microsoft ASP.NET 2.0 Step By Step", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461594-M.jpg" }, IsFinished = true });
 
-            //FirstThreeReadingBooks.Add(new Book() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461563-M.jpg" }, IsFinished = false });
-            //FirstThreeReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
-            
-            //SecondThreeReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
-            //SecondThreeReadingBooks.Add(new Book() { Title = "Microsoft ASP.NET 2.0 Step By Step", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461594-M.jpg" }, IsFinished = false });
+            FirstThreeReadingBooks.Add(new Book() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461563-M.jpg" }, IsFinished = false });
+            FirstThreeReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
+
+            SecondThreeReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
+            SecondThreeReadingBooks.Add(new Book() { Title = "Microsoft ASP.NET 2.0 Step By Step", Cover = new Cover() { Medium = @"http://covers.openlibrary.org/b/id/461594-M.jpg" }, IsFinished = false });
 
             HasNoFinishedBook = FinsihedBooks.Count == 0;
             HasNoReadingBook = ReadingBooks.Count == 0;
+
+            HasTooManyReadingBooks = ReadingBooks.Count > 4;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -16,10 +16,12 @@
     xmlns:c4f="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
     xmlns:c4fc="clr-namespace:Coding4Fun.Toolkit.Controls.Converters;assembly=Coding4Fun.Toolkit.Controls" 
     xmlns:Converters="clr-namespace:Coding4Fun.Toolkit.Controls.Converters;assembly=Coding4Fun.Toolkit.Controls"
+    xmlns:utils="clr-namespace:Readgress.WP8.Utils;assembly=Readgress.WP8"
     Style="{StaticResource TransitionPageStyle}">
 
     <phone:PhoneApplicationPage.Resources>
         <c4fc:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+        <utils:TooManyFinishedBooksToVisibilityConverter x:Key="countFinishedBooksToVisibilityConverter"/>
 
         <shell:ApplicationBar x:Key="readingAppBar" IsVisible="True">
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/add.png" Text="Add new" Click="AddNewButton_Click"/>
@@ -65,8 +67,13 @@
                 <!--Double wide Panorama with large image placeholders-->
                 <ScrollViewer>
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <c4f:ProgressOverlay 
-                            Name="SearchProgressOverlay" 
+                            Name="SearchProgressOverlay"
                             Visibility="{Binding IsDataLoading, Converter={StaticResource booleanToVisibilityConverter} }">
                             <c4f:ProgressOverlay.Resources>
                                 <Converters:VisibilityToBooleanConverter x:Key="VisToBoolConverter" />
@@ -81,7 +88,7 @@
                         <ItemsControl x:Name="FirstRowStack" ItemsSource="{Binding FirstThreeReadingBooks}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal"/>
+                                    <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
@@ -95,7 +102,7 @@
                         <ItemsControl x:Name="SecondRowStack" ItemsSource="{Binding SecondThreeReadingBooks}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,312,0,0"/>
+                                    <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,312,0,0"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
@@ -105,27 +112,28 @@
                                     </Image>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
+
                         </ItemsControl>
                         
                         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" 
                                    Text="You have no books" VerticalAlignment="Top" 
                                    Height="48" Width="223"
                                    Visibility="{Binding HasNoReadingBook, Converter={StaticResource booleanToVisibilityConverter} }" FontSize="24" />
-
+                        <Button Grid.Row="2" Name="MoreReadingButton" Content="More" Margin="0,0,50,0"
+                                      Visibility="{Binding HasTooManyReadingBooks, Converter={StaticResource booleanToVisibilityConverter} }"  />
                         <!--<StackPanel Name="ReadingBooksStackPanel" Margin="0,4,16,0" Orientation="Vertical" VerticalAlignment="Top">
                         </StackPanel>-->
                     </Grid>
                 </ScrollViewer>
             </phone:PanoramaItem>
             <phone:PanoramaItem>
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding FinsihedBooks}">
+                    <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
+                <phone:LongListSelector Name="FinishedBookLongList" Margin="0,-38,-22,2" ItemsSource="{Binding FinsihedBooks}" Grid.Row="0">
                     <phone:LongListSelector.ListHeaderTemplate>
                         <DataTemplate>
                             <Grid Margin="12,0,0,38">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="finished"
                                            Style="{StaticResource PanoramaItemHeaderTextStyle}"
@@ -142,12 +150,24 @@
                                 </Image>
                                 <!--<Border BorderThickness="1" Width="99" Height="99" BorderBrush="#FFFFC700" Background="#FFFFC700"/>-->
                                 <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeSmall}" />
                                     <!--<TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />-->
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
+                    <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Grid Margin="12,0,0,38">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                <Button Name="MoreFinishedButton" Content="More" Margin="0,0,50,0"
+                                      Visibility="{Binding ItemsSource.Count, ElementName=FinishedBookLongList, Converter={StaticResource countFinishedBooksToVisibilityConverter} }"  />
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
                 </phone:LongListSelector>
             </phone:PanoramaItem>
 

@@ -114,6 +114,7 @@
     <Compile Include="SearchBookPage.xaml.cs">
       <DependentUpon>SearchBookPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ListCountToVisibilityConverter.cs" />
     <Compile Include="Utils\ReadgressAPIEndpoints.cs" />
     <Compile Include="Utils\StorageSettings.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
