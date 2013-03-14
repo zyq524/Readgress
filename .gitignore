@@ -112,3 +112,9 @@ UpgradeLog*.XML
 *.ldf
 /Readgress.Web/Readgress.Web/Properties/PublishProfiles/*.pubxml
 /Readgress.Web/Readgress.Web/Properties/PublishProfiles/*.pubxml
+/Readgress.Web/Readgress.Web/App_Data
+/Readgress.WP8/Readgress.WP8/Assets/AppBar/*.db
+/Readgress.WP8/Readgress.WP8/Assets/*.db
+/Readgress.WP8/Readgress.WP8/Assets/Tiles/*.db
+
+/Readgress.Web/Readgress.Web/Images/Thumbs.db

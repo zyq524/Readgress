@@ -1,4 +1,5 @@
-﻿using Readgress.Data;
+﻿using GoogleBooksAPI;
+using Readgress.Data;
 using Readgress.Data.Helpers;
 using Readgress.Data.SampleData;
 using Readgress.Models;
@@ -15,6 +16,8 @@ namespace Readgress.Con
     {
         static void Main(string[] args)
         {
+            var details = new Details();
+            var books = details.FindBooksByTitleAndAuthor("Large Scale C++", "Lakos");
             Database.SetInitializer(
                 new DropCreateDatabaseAlways<ReadgressDbContext>());
             //Database.SetInitializer<ReadgressDbContext>(null);

@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.PresentationModel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readgress.PresentationModel.UnitTests", "Readgress.PresentationModel.UnitTests\Readgress.PresentationModel.UnitTests.csproj", "{A2E291BD-0166-448C-ADBA-621B09733F4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleBooksAPI", "..\Shared\GoogleBooksAPI\GoogleBooksAPI.csproj", "{ADECD5C2-25E2-4DA5-BC41-AA0230395A4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E291BD-0166-448C-ADBA-621B09733F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADECD5C2-25E2-4DA5-BC41-AA0230395A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADECD5C2-25E2-4DA5-BC41-AA0230395A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADECD5C2-25E2-4DA5-BC41-AA0230395A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADECD5C2-25E2-4DA5-BC41-AA0230395A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

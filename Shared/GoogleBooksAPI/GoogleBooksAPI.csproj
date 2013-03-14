@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D15AA03D-5396-4970-89E1-A8F471E9E08F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{ADECD5C2-25E2-4DA5-BC41-AA0230395A4A}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Readgress.Con</RootNamespace>
-    <AssemblyName>Readgress.Con</AssemblyName>
+    <RootNamespace>GoogleBooksAPI</RootNamespace>
+    <AssemblyName>GoogleBooksAPI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Readgress.Web\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Readgress.Web\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,9 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Readgress.Web\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Readgress.Web\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,32 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="BooksData.cs" />
+    <Compile Include="Details.cs" />
+    <Compile Include="IDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Shared\GoogleBooksAPI\GoogleBooksAPI.csproj">
-      <Project>{adecd5c2-25e2-4da5-bc41-aa0230395a4a}</Project>
-      <Name>GoogleBooksAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Shared\Readgress.Data.Contracts\Readgress.Data.Contracts.csproj">
-      <Project>{46d1754c-f68d-430a-a617-4dad5222fce8}</Project>
-      <Name>Readgress.Data.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Shared\Readgress.Data\Readgress.Data.csproj">
-      <Project>{2412c7cd-4d60-4dce-aa9c-67494de5667c}</Project>
-      <Name>Readgress.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Shared\Readgress.Models\Readgress.Models.csproj">
-      <Project>{31ca48d7-f2eb-493e-8f8d-45c6a8fd0363}</Project>
-      <Name>Readgress.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
