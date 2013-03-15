@@ -441,9 +441,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\OpenLibrary\OpenLibrary.csproj">
-      <Project>{12154ff3-1fe0-471c-8686-da35cfd2e8a7}</Project>
-      <Name>OpenLibrary</Name>
+    <ProjectReference Include="..\..\Shared\GoogleBooksAPI\GoogleBooksAPI.csproj">
+      <Project>{adecd5c2-25e2-4da5-bc41-aa0230395a4a}</Project>
+      <Name>GoogleBooksAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Readgress.Data.Contracts\Readgress.Data.Contracts.csproj">
       <Project>{46d1754c-f68d-430a-a617-4dad5222fce8}</Project>
