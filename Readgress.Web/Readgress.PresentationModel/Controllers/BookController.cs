@@ -19,16 +19,16 @@ namespace Readgress.PresentationModel.Controllers
             this.details = details;
         }
 
-        // GET api/book/?Title="working effectively with legacy code"
+        // GET api/book/?Title="working effectively with legacy code"&startIndex=0
         [ActionName("getbyTitle")]
-        public List<BookData> GetByTitle(string title)
+        public List<BookData> GetByTitle(string title, int startIndex = 0)
         {
             if (string.IsNullOrEmpty(title))
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            var books = this.details.FindBooksByTitle(title);
+            var books = this.details.FindBooksByTitle(title, startIndex);
 
             if (books.TotalItems == 0)
             {

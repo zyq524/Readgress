@@ -42,7 +42,7 @@ namespace Readgress.PresentationModel.UnitTests
         [TestMethod]
         public void GetByTitle_WithValidTitle_ReturnsOneBook()
         {
-            detailsMock.Setup(d => d.FindBooksByTitle(bookTest.VolumeInfo.Title)).Returns(new BooksData { TotalItems = 1, Items = new List<BookData>() { bookTest } });
+            detailsMock.Setup(d => d.FindBooksByTitle(bookTest.VolumeInfo.Title, 0, 10)).Returns(new BooksData { TotalItems = 1, Items = new List<BookData>() { bookTest } });
 
             BookController sut = new BookController(detailsMock.Object); 
             List<BookData> actual = sut.GetByTitle(bookTest.VolumeInfo.Title);
@@ -57,7 +57,7 @@ namespace Readgress.PresentationModel.UnitTests
             BookData bookTest2 = bookTest;
             bookTest2.VolumeInfo.Title += " Version1";
             List<BookData> expected = new List<BookData>() { bookTest, bookTest2 };
-            detailsMock.Setup(d => d.FindBooksByTitle(bookTest.VolumeInfo.Title)).Returns(new BooksData { TotalItems = 2, Items = expected });
+            detailsMock.Setup(d => d.FindBooksByTitle(bookTest.VolumeInfo.Title, 0, 10)).Returns(new BooksData { TotalItems = 2, Items = expected });
 
             BookController sut = new BookController(detailsMock.Object);
             List<BookData> actual = sut.GetByTitle(bookTest.VolumeInfo.Title);
@@ -89,7 +89,7 @@ namespace Readgress.PresentationModel.UnitTests
         public void GetByTitle_WithNonExistingTitle_ThrowNotFound()
         {
             string nonExistingTitle = "What is this";
-            detailsMock.Setup(d => d.FindBooksByTitle(nonExistingTitle)).Returns(new BooksData());
+            detailsMock.Setup(d => d.FindBooksByTitle(nonExistingTitle, 0, 10)).Returns(new BooksData());
             HttpResponseException exception = null;
 
             try
