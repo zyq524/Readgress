@@ -7,7 +7,7 @@ namespace GoogleBooksAPI
     public class Details : IDetails
     {
         private const string baseUrl = @"https://www.googleapis.com/books/v1/volumes?q=";
-        private const string fields = @"&fields=totalItems,items(selfLink, volumeInfo(title,subtitle,authors,publisher,publishedDate,imageLinks/smallThumbnail,pageCount))";
+        private const string fields = @"&fields=totalItems,items(selfLink, volumeInfo(title,subtitle,authors,publisher,publishedDate,imageLinks/smallThumbnail,pageCount,infoLink))";
         private const string sort = @"&orderBy=relevance";
 
         public BooksData FindBooksByTitle(string title, int startIndex = 0, int maxResults = 10)

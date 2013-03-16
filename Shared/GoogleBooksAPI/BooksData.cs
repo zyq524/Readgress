@@ -23,6 +23,7 @@ namespace GoogleBooksAPI
         public string PublishedDate;
         public ImageLinks imageLinks;
         public int PageCount;
+        public string InfoLink;
     }
 
     public class ImageLinks
