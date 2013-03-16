@@ -30,11 +30,6 @@ namespace Readgress.PresentationModel.Controllers
 
             var books = this.details.FindBooksByTitle(title, startIndex);
 
-            if (books.TotalItems == 0)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-
             return books.Items;
         }
 
@@ -62,11 +57,6 @@ namespace Readgress.PresentationModel.Controllers
         //    }
 
         //    var books = this.details.FindBooksByTitle(title);
-
-        //    if (books.TotalItems == 0)
-        //    {
-        //        throw new HttpResponseException(HttpStatusCode.NotFound);
-        //    }
 
         //    return books.Items;
         //}
