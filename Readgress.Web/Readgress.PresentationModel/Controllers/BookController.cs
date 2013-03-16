@@ -38,6 +38,20 @@ namespace Readgress.PresentationModel.Controllers
             return books.Items;
         }
 
+        // GET api/book/?TotalItems="working effectively with legacy code"
+        [ActionName("getTotalItemsNumber")]
+        public int GetByTotalItems(string totalItems)
+        {
+            if (string.IsNullOrEmpty(totalItems))
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            int num = this.details.FindBooksTotalItemsByTitle(totalItems);
+
+            return num;
+        }
+
         //// GET api/book/?Title="book title"&author="author name"
         //[ActionName("getbyTitle")]
         //public List<BookData> GetByTitleAndAuthor(string title, string author)

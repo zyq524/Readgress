@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="BooksData.cs" />
     <Compile Include="Details.cs" />
-    <Compile Include="GZipWebClient.cs" />
+    <Compile Include="GZipWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
