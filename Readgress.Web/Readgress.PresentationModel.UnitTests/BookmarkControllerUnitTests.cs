@@ -69,7 +69,7 @@ namespace Readgress.PresentationModel.UnitTests
            progressTest = new Progress()
            {
                Id = 1,
-               OLId = "OL12345",
+               Isbn = "OL12345",
                ReaderId = 1,
                Reader = readerTest,
                IsFinished = false

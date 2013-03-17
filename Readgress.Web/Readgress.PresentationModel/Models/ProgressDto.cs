@@ -16,7 +16,8 @@ namespace Readgress.PresentationModel.Models
             Id = progress.Id;
             ReaderId = progress.ReaderId;
             UserName = progress.Reader.UserName;
-            OLId = progress.OLId;
+            Isbn = progress.Isbn;
+            GoogleBookId = progress.GoogleBookId;
             IsFinished = progress.IsFinished;
         }
 
@@ -31,7 +32,9 @@ namespace Readgress.PresentationModel.Models
 
         //Open Library Id
         [Required]
-        public string OLId { get; set; }
+        public string Isbn { get; set; }
+
+        public string GoogleBookId { get; set; }
 
         public bool IsFinished { get; set; }
 
@@ -41,7 +44,8 @@ namespace Readgress.PresentationModel.Models
             {
                 Id = Id,
                 ReaderId = ReaderId,
-                OLId = OLId,
+                Isbn = Isbn,
+                GoogleBookId = GoogleBookId,
                 IsFinished = IsFinished,
             };
         }

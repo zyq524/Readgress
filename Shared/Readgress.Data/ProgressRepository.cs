@@ -29,9 +29,5 @@ namespace Readgress.Data
             return this.GetAll().Where(p => p.ReaderId == readerId);
         }
 
-        public Progress GetByOLId(string oLId)
-        {
-            return this.GetAll().FirstOrDefault(p => string.Compare(p.OLId, oLId, true) == 0);
-        }
     }
 }

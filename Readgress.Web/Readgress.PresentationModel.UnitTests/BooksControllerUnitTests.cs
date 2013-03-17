@@ -22,7 +22,7 @@ namespace Readgress.PresentationModel.UnitTests
 
             bookTest = new BookData
             {
-                SelfLink = "http://bks6.books.google.com/books?id=AuMpAQAAMAA",
+                Id = "AuMpAQAAMAA",
                 VolumeInfo = new VolumeInfo
                 {
                     Title = "WebApi Introdutcion",

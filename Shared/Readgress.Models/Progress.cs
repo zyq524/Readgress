@@ -15,9 +15,10 @@ namespace Readgress.Models
         [Required]
         public int Id { get; set; }
         public int ReaderId { get; set; }
-        //Open Library Id
-        public string OLId { get; set; }
+        //ISBN 10
+        public string Isbn { get; set; }
 
+        public string GoogleBookId { get; set; }
         public bool IsFinished { get; set; }
 
         [JsonIgnore]

@@ -36,7 +36,7 @@ namespace Readgress.Data.SampleData
                     bookmark1,bookmark2
                 },
                 Reader = reader,
-                OLId = "OL3315089M",
+                Isbn = "OL3315089M",
                 IsFinished = false
             };
 

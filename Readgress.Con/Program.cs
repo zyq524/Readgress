@@ -17,7 +17,7 @@ namespace Readgress.Con
         static void Main(string[] args)
         {
             var details = new Details();
-            var books = details.FindBooksTotalItemsByTitleAndAuthor("Large Scale C++", "Lakos");
+            var books = details.FindBookByIsbn("1451648553");
 
             Database.SetInitializer(
                 new DropCreateDatabaseAlways<ReadgressDbContext>());

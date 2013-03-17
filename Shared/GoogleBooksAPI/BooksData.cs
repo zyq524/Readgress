@@ -10,7 +10,7 @@ namespace GoogleBooksAPI
 
     public class BookData
     {
-        public string SelfLink;
+        public string Id;
         public VolumeInfo VolumeInfo;
     }
 
@@ -24,11 +24,18 @@ namespace GoogleBooksAPI
         public ImageLinks imageLinks;
         public int PageCount;
         public string InfoLink;
+        public List<IndustryIdentifiers> IndustryIdentifiers;
     }
 
     public class ImageLinks
     {
         public string SmallThumbnail;
+    }
+
+    public class IndustryIdentifiers
+    {
+        public string Type;
+        public string identifier;
     }
 }
 
