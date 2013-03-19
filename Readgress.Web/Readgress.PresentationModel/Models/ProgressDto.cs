@@ -14,7 +14,6 @@ namespace Readgress.PresentationModel.Models
         public ProgressDto(Progress progress)
         {
             Id = progress.Id;
-            ReaderId = progress.ReaderId;
             UserName = progress.Reader.UserName;
             Isbn = progress.Isbn;
             GoogleBookId = progress.GoogleBookId;
@@ -23,9 +22,6 @@ namespace Readgress.PresentationModel.Models
 
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public int ReaderId { get; set; }
 
         [Required]
         public string UserName { get; set; }
@@ -43,7 +39,6 @@ namespace Readgress.PresentationModel.Models
             return new Progress
             {
                 Id = Id,
-                ReaderId = ReaderId,
                 Isbn = Isbn,
                 GoogleBookId = GoogleBookId,
                 IsFinished = IsFinished,

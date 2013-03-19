@@ -98,13 +98,11 @@ namespace Readgress.PresentationModel.UnitTests
             Assert.AreEqual(readerTest.UserName, actual[1].UserName);
             Assert.AreEqual(progressesTest[0].Id, actual[1].Id);
             Assert.AreEqual(progressesTest[0].Isbn, actual[1].Isbn);
-            Assert.AreEqual(progressesTest[0].ReaderId, actual[1].ReaderId);
             Assert.AreEqual(progressesTest[0].IsFinished, actual[1].IsFinished);
 
             Assert.AreEqual(readerTest.UserName, actual[0].UserName);
             Assert.AreEqual(progressesTest[1].Id, actual[0].Id);
             Assert.AreEqual(progressesTest[1].Isbn, actual[0].Isbn);
-            Assert.AreEqual(progressesTest[1].ReaderId, actual[0].ReaderId);
             Assert.AreEqual(progressesTest[1].IsFinished, actual[0].IsFinished);
         }
 
@@ -130,7 +128,6 @@ namespace Readgress.PresentationModel.UnitTests
             Assert.AreEqual(readerTest.UserName, actual.UserName);
             Assert.AreEqual(progressesTest[0].Id, actual.Id);
             Assert.AreEqual(progressesTest[0].Isbn, actual.Isbn);
-            Assert.AreEqual(progressesTest[0].ReaderId, actual.ReaderId);
             Assert.AreEqual(progressesTest[0].IsFinished, actual.IsFinished);
         }
 
