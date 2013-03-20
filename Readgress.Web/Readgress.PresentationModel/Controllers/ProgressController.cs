@@ -58,7 +58,7 @@ namespace Readgress.PresentationModel.Controllers
                 else
                 {
                     Progress progress = progressDto.ToEntity();
-
+                    progress.ReaderId = Uow.Readers.GetAll().Where(r => r.UserName == User.Identity.Name).First().Id;
                     Uow.Progresses.Add(progress);
                     Uow.Commit();
 
@@ -86,8 +86,9 @@ namespace Readgress.PresentationModel.Controllers
                 {
                     throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
                 }
-
-                Uow.Progresses.Update(progressDto.ToEntity());
+                Progress progress = progressDto.ToEntity();
+                progress.ReaderId = Uow.Readers.GetAll().Where(r => r.UserName == User.Identity.Name).First().Id;
+                Uow.Progresses.Update(progress);
                 Uow.Commit();
 
                 return Request.CreateResponse(HttpStatusCode.OK);

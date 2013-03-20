@@ -82,7 +82,9 @@ namespace Readgress.PresentationModel.Controllers
                     Uow.Bookmarks.Add(bookmark);
                     Uow.Commit();
 
-                    bookmarkDto.Id = bookmarkDto.Id;
+                    bookmarkDto.Id = bookmark.Id;
+                    bookmarkDto.CreatedOn = bookmark.CreatedOn;
+
                     HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, bookmarkDto);
                     response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = bookmark.Id }));
                     return response;

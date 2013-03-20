@@ -105,7 +105,6 @@ namespace Readgress.PresentationModel.UnitTests
 
             Assert.IsNotNull(actual);
             Assert.AreEqual(bookmarksTest[0].Id, actual.Id);
-            Assert.AreEqual(bookmarksTest[0].Progress.ReaderId, actual.ReaderId);
             Assert.AreEqual(bookmarksTest[0].Progress.Reader.UserName, actual.UserName);
             Assert.AreEqual(bookmarksTest[0].ProgressId, actual.ProgressId);
             Assert.AreEqual(bookmarksTest[0].PageNumber, actual.PageNumber);
@@ -162,14 +161,12 @@ namespace Readgress.PresentationModel.UnitTests
             Assert.AreEqual(2, actual.Count());
 
             Assert.AreEqual(bookmarksTest[0].Id, actual[0].Id);
-            Assert.AreEqual(bookmarksTest[0].Progress.ReaderId, actual[0].ReaderId);
             Assert.AreEqual(bookmarksTest[0].Progress.Reader.UserName, actual[0].UserName);
             Assert.AreEqual(bookmarksTest[0].ProgressId, actual[0].ProgressId);
             Assert.AreEqual(bookmarksTest[0].PageNumber, actual[0].PageNumber);
             Assert.AreEqual(bookmarksTest[0].CreatedOn, actual[0].CreatedOn);
 
             Assert.AreEqual(bookmarksTest[1].Id, actual[1].Id);
-            Assert.AreEqual(bookmarksTest[1].Progress.ReaderId, actual[1].ReaderId);
             Assert.AreEqual(bookmarksTest[1].Progress.Reader.UserName, actual[1].UserName);
             Assert.AreEqual(bookmarksTest[1].ProgressId, actual[1].ProgressId);
             Assert.AreEqual(bookmarksTest[1].PageNumber, actual[1].PageNumber);

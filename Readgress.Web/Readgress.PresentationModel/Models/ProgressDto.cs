@@ -41,7 +41,7 @@ namespace Readgress.PresentationModel.Models
                 Id = Id,
                 Isbn = Isbn,
                 GoogleBookId = GoogleBookId,
-                IsFinished = IsFinished,
+                IsFinished = IsFinished
             };
         }
     }

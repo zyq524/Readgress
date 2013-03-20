@@ -14,7 +14,6 @@ namespace Readgress.PresentationModel.Models
         public BookmarkDto(Bookmark bookmark)
         {
             Id = bookmark.Id;
-            ReaderId = bookmark.Progress.ReaderId;
             UserName = bookmark.Progress.Reader.UserName;
             ProgressId = bookmark.ProgressId;
             PageNumber = bookmark.PageNumber;
@@ -23,9 +22,6 @@ namespace Readgress.PresentationModel.Models
 
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public int ReaderId { get; set; }
 
         [Required]
         public string UserName { get; set; }
