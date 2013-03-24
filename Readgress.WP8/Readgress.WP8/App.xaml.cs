@@ -1,37 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Diagnostics;
-using System.Resources;
-using System.Windows;
-using System.Windows.Markup;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
+﻿using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Readgress.WP8.Resources;
 using Readgress.WP8.ViewModels;
+using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Markup;
+using System.Windows.Navigation;
 
 namespace Readgress.WP8
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
         private static BookViewModel bookViewModel = null;
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new MainViewModel();
-
-                return viewModel;
-            }
-        }
+        private static SearchBooksViewModel searchBooksViewModel = null;
 
         public static BookViewModel BookViewModel
         {
@@ -44,6 +26,20 @@ namespace Readgress.WP8
                 return bookViewModel;
             }
         }
+
+        public static SearchBooksViewModel SearchBooksViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (searchBooksViewModel == null)
+                    searchBooksViewModel = new SearchBooksViewModel();
+
+                return searchBooksViewModel;
+            }
+        }
+
+        public static string LocalStorageFile = "Readgress.xml";
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.

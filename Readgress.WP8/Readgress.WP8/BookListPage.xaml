@@ -25,20 +25,20 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Width="110" Height="150" Source="{Binding Cover_Medium}" 
+                <Image Width="110" Height="150" Source="{Binding VolumeInfo.Cover_Medium}" 
                        VerticalAlignment="Top">
                 </Image>
                 <StackPanel Grid.Column="1" VerticalAlignment="Top">
-                    <TextBlock Text="{Binding TrimmedTitle}" Style="{StaticResource PhoneTextLargeStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="12,-12,12,6"/>
-                    <TextBlock Text="{Binding SubTitle}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" TextTrimming="WordEllipsis"  FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                    <TextBlock Text="{Binding VolumeInfo.TrimmedTitle}" Style="{StaticResource PhoneTextLargeStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="12,-12,12,6"/>
+                    <TextBlock Text="{Binding VolumeInfo.SubTitle}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" TextTrimming="WordEllipsis"  FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Author(s):" Style="{StaticResource PhoneTextSmallStyle}"/>
-                        <TextBlock Text="{Binding AuthorsStr}" Style="{StaticResource PhoneTextSmallStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="0,0,12,0" />
+                        <TextBlock Text="{Binding VolumeInfo.AuthorsStr}" Style="{StaticResource PhoneTextSmallStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="0,0,12,0" />
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </DataTemplate>
-
+        
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -69,6 +69,7 @@
                                             SelectionChanged="OnBookListSelectionChanged"
                                             IsSelectionEnabledChanged="OnBookListIsSelectionEnabledChanged"
                                             ItemTemplate="{StaticResource BookItemTemplate}"
+                                            ItemsSource="{Binding FoundBooks}"
                                             />
         </Grid>
     </Grid>

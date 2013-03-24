@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using Facebook;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Facebook;
 using Readgress.WP8.Utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Linq;
+using System.Windows;
+using System.Windows.Navigation;
+using System.Xml.Linq;
 
 namespace Readgress.WP8
 {
@@ -66,13 +66,9 @@ namespace Readgress.WP8
 
             if (oauthResult.IsSuccess)
             {
-                var accessToken = oauthResult.AccessToken;
-
-                StorageSettings settings = new StorageSettings();
-                settings.FacebookAccessToken = oauthResult.AccessToken;
-                settings.FacebookAccessTokenExpires = oauthResult.Expires;
-
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                LoginSucceded(oauthResult);
+            
+                //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
 
             }
             else
@@ -93,14 +89,54 @@ namespace Readgress.WP8
                     Dispatcher.BeginInvoke(() => MessageBox.Show(e.Error.Message));
                     return;
                 }
+                var result = (IDictionary<string, object>)e.GetResultData();
 
                 StorageSettings settings = new StorageSettings();
                 settings.FacebookAccessToken = oauthResult.AccessToken;
                 settings.FacebookAccessTokenExpires = oauthResult.Expires;
+                settings.FacebookUserName = result["username"].ToString();
 
+                SaveNewUserToXmlFile(result["username"].ToString());
 
                 Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative)));
             };
+
+            fb.GetAsync("me");
+        }
+
+        private void SaveNewUserToXmlFile(string userName)
+        {
+            using(IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (!storage.FileExists(App.LocalStorageFile))
+                {
+                    XDocument doc = new XDocument(
+                        new XElement("Readgress",
+                            new XElement("Readers",
+                                new XElement("Reader",
+                                    new XElement("UserName", userName))),
+                            new XElement("Progresses")));
+
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(App.LocalStorageFile, FileMode.Create))
+                    {
+                        doc.Save(stream);
+                    }
+                }
+                else
+                {
+                    XDocument doc = XDocument.Load(App.LocalStorageFile);
+                    var reader = doc.Element("Readgress").Descendants("Reader").Where(e => e.Element("UserName").Value == userName).FirstOrDefault();
+                    if (reader == null)
+                    {
+                        doc.Element("Readgress").Element("Readers").Add(new XElement("Reader", new XElement("UserName", userName)));
+                    }
+
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(App.LocalStorageFile, FileMode.OpenOrCreate))
+                    {
+                        doc.Save(stream);
+                    }
+                }
+            }
         }
     }
 }

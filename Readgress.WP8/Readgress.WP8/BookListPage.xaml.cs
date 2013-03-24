@@ -1,18 +1,21 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Newtonsoft.Json;
+using Readgress.WP8.Models;
+using Readgress.WP8.Utils;
+using Readgress.WPPostClient;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Newtonsoft.Json;
-using Readgress.WP8.Models;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Collections;
-using Readgress.WP8.Utils;
+using System.Xml.Linq;
 
 namespace Readgress.WP8
 {
@@ -23,55 +26,140 @@ namespace Readgress.WP8
             InitializeComponent();
 
             CreateApplicationBarItems();
+            DataContext = App.SearchBooksViewModel;
         }
 
-        public List<Book> Books { get; private set; }
+        private int startIndex;
+        private int totalItems;
+        private string bookTitleToSearch;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            string bookTitleToSearch = NavigationContext.QueryString["booktitle"];
-            SearchBooksByTitle(bookTitleToSearch);
+            startIndex = 0;
+            totalItems = 0;
+
+            bookTitleToSearch = NavigationContext.QueryString["booktitle"];
+            SearchBooksTotalItems(bookTitleToSearch);
         }
+
+        private void SearchBooksTotalItems(string title)
+        {
+            if (!string.IsNullOrEmpty(title))
+            {
+                string booksUrl = ReadgressAPIEndpoints.BooksTotalItemsUrl + title;
+                WebClient webClient = new WebClient();
+                webClient.DownloadStringCompleted += (sender, e) =>
+                    {
+                        if (e.Error == null)
+                        {
+                            totalItems = JsonConvert.DeserializeObject<int>(e.Result);
+
+                            if (totalItems > 0)
+                            {
+                                SearchBooksByTitle(bookTitleToSearch);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Service is not available. Try it later.");
+                        }
+                    };
+                webClient.DownloadStringAsync(new Uri(booksUrl), UriKind.Absolute);
+                //try
+                //{
+                //    WebClient webClient = new WebClient();
+                //    webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(SearchBooksTotalItemsCompleted);
+                //    webClient.DownloadStringAsync(new Uri(booksUrl));
+
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Service is not available. Try it later.");
+                //}
+            }
+        }
+
+        //private void SearchBooksTotalItemsCompleted(object sender, DownloadStringCompletedEventArgs e)
+        //{
+        //    if (e.Error != null)
+        //    {
+        //        return;
+        //    }
+        //    totalItems = JsonConvert.DeserializeObject<int>(e.Result);
+
+        //    if (totalItems > 0)
+        //    {
+        //        SearchBooksByTitle(bookTitleToSearch);
+        //    }
+        //}
+
 
         private void SearchBooksByTitle(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
-                string openLibraryBooksUrl = ReadgressAPIEndpoints.OpenLibraryBooksUrl + title;
+                string booksUrl = ReadgressAPIEndpoints.BooksUrl + title + "&startIndex=" + startIndex;
+                startIndex += 10;
 
-                try
+                WebClient webClient = new WebClient();
+                webClient.DownloadStringCompleted += (sender, e) =>
                 {
-                    WebClient webClient = new WebClient();
-                    webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(WebClient_DownloadStringCompleted);
-                    webClient.DownloadStringAsync(new Uri(openLibraryBooksUrl));
+                    if (e.Error == null)
+                    {
+                        var books = JsonConvert.DeserializeObject<List<Book>>(e.Result).ToList();
 
-                }
-                catch
-                {
-                    MessageBox.Show("Service is not available. Try it later.");
-                }
+                        foreach (var book in books)
+                        {
+                            App.SearchBooksViewModel.FoundBooks.Add(book);
+                        }
+                        SearchProgressOverlay.Visibility = Visibility.Collapsed;
+
+                        OnBookListActivated();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Service is not available. Try it later.");
+                    }
+                };
+                webClient.DownloadStringAsync(new Uri(booksUrl), UriKind.Absolute);
+
+                //try
+                //{
+                //    WebClient webClient = new WebClient();
+                //    webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(SearchBooksByTitleCompleted);
+                //    webClient.DownloadStringAsync(new Uri(booksUrl));
+
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Service is not available. Try it later.");
+                //}
             }
         }
 
-        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                return;
-            }
-            Books = JsonConvert.DeserializeObject<List<Book>>(e.Result);
+        //private void SearchBooksByTitleCompleted(object sender, DownloadStringCompletedEventArgs e)
+        //{
+        //    if (e.Error != null)
+        //    {
+        //        return;
+        //    }
+        //    var books = JsonConvert.DeserializeObject<List<Book>>(e.Result).ToList();
 
-            SearchProgressOverlay.Visibility = Visibility.Collapsed;
+        //    foreach (var book in books)
+        //    {
+        //        App.SearchBooksViewModel.FoundBooks.Add(book.VolumeInfo);
+        //    }
+        //    SearchProgressOverlay.Visibility = Visibility.Collapsed;
 
-            OnBookListActivated();
-            BookList.ItemsSource = Books;
-        }
+        //    OnBookListActivated();
+        //}
 
         #region MultiselectListbox item
         ApplicationBarIconButton select;
         ApplicationBarIconButton add;
+        ApplicationBarIconButton refresh;
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
@@ -93,6 +181,11 @@ namespace Readgress.WP8
             add.IconUri = new Uri("/Assets/AppBar/add.png", UriKind.RelativeOrAbsolute);
             add.Text = "add";
             add.Click += OnAddClick;
+
+            refresh = new ApplicationBarIconButton();
+            refresh.IconUri = new Uri("/Assets/AppBar/refresh.png", UriKind.RelativeOrAbsolute);
+            refresh.Text = "more";
+            refresh.Click += OnRefreshClick;
         }
 
         /// <summary>
@@ -124,6 +217,11 @@ namespace Readgress.WP8
             }
             else
             {
+                if (totalItems > startIndex)
+                {
+                    ApplicationBar.Buttons.Add(refresh);
+                }
+
                 ApplicationBar.Buttons.Add(select);
             }
             ApplicationBar.IsVisible = true;
@@ -188,10 +286,92 @@ namespace Readgress.WP8
         void OnAddClick(object sender, EventArgs e)
         {
             IList source = BookList.ItemsSource as IList;
-            //while (BookList.SelectedItems.Count > 0)
-            //{
-            //    source.Remove((EmailObject)EmailList.SelectedItems[0]);
-            //}
+            int selectedItemsCount = BookList.SelectedItems.Count;
+            for (int i = 0; i < selectedItemsCount; i++)
+            {
+                AddNewProgress((Book)BookList.SelectedItems[i]);
+            }
+        }
+
+        void AddNewProgress(Book book)
+        {
+            StorageSettings settings = new StorageSettings();
+
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                XDocument doc = null;
+                using (IsolatedStorageFileStream stream = storage.OpenFile(App.LocalStorageFile, FileMode.Open, FileAccess.Read))
+                {
+                    doc = XDocument.Load(stream);
+                    var existingBook = doc.Descendants("Progress").Where(
+                         e => e.Attribute("UserName").Value == settings.FacebookUserName && e.Attribute("Isbn").Value == book.VolumeInfo.Isbn).FirstOrDefault();
+                    if (existingBook == null)
+                    {
+                        XElement progressElm = new XElement("Progress",
+                            new XAttribute("UserName", settings.FacebookUserName),
+                            new XAttribute("Isbn", book.VolumeInfo.Isbn),
+                            new XElement("GoogleBookId", book.Id),
+                            new XElement("Title", book.VolumeInfo.Title),
+                            new XElement("SubTitle", book.VolumeInfo.SubTitle),
+                            new XElement("Authors", book.VolumeInfo.AuthorsStr),
+                            new XElement("CoverMedium", book.VolumeInfo.Cover_Medium),
+                            new XElement("IsFinished", false),
+                            new XElement("Bookmarks"));
+                        XElement progresses = doc.Descendants("Progresses").First();
+                        progresses.Add(progressElm);
+                    }
+                    else
+                    {
+                        doc = null;
+                        MessageBox.Show("You have added this book.");
+                    }
+
+                }
+
+                if (doc != null)
+                {
+                    using (IsolatedStorageFileStream stream = storage.OpenFile(App.LocalStorageFile, FileMode.Open, FileAccess.Write))
+                    {
+                        doc.Save(stream);
+                    }
+                }
+                BookList.IsSelectionEnabled = false;
+            }
+        }
+
+        void PostNewProgress(Book book)
+        {
+            StorageSettings settings = new StorageSettings();
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("UserName", settings.FacebookUserName);
+            parameters.Add("Isbn", book.VolumeInfo.Isbn);
+            parameters.Add("GoogleBookId", book.Id);
+            parameters.Add("IsFinished", false);
+
+            PostClient client = new PostClient(parameters);
+            client.DownloadStringCompleted += (sender, e) =>
+            {
+                if (e.Error == null)
+                {
+                    //Process the result...
+                    string data = e.Result;
+                }
+                else
+                {
+                    MessageBox.Show("Service is not available. Try it later.");
+                }
+            };
+            client.DownloadStringAsync(new Uri(ReadgressAPIEndpoints.ProgressUrl, UriKind.Absolute), settings.FacebookAccessToken);
+        }
+
+        /// <summary>
+        /// Adds more items
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnRefreshClick(object sender, EventArgs e)
+        {
+            SearchBooksByTitle(bookTitleToSearch);
         }
 
         /// <summary>

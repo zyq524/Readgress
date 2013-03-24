@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Readgress.WP8.Models
 {
+    public class Books
+    {
+        public int TotalItems { get; set; }
+        public List<Book> Items { get; set; }
+    }
+
     public class Book
+    {
+        public string Id { get; set; }
+        public VolumeInfo VolumeInfo { get; set; }
+    }
+
+    public class VolumeInfo
     {
         public string Title { get; set; }
         public string SubTitle { get; set; }
-        public string Url { get; set; }
-        public string Publish_Date { get; set; }
-        public int Number_Of_Pages { get; set; }
+        public string Publisher { get; set; }
+        public string PublishedDate { get; set; }
+        public int PageCount { get; set; }
+        public string InfoLink { get; set; }
 
-        public Cover Cover;
-        public List<Subject> Subjects;
-        public List<Author> Authors;
-        public List<Publisher> Publishers;
+        public ImageLinks ImageLinks;
+        public List<IndustryIdentifiers> IndustryIdentifiers;
+        public List<string> Authors;
 
         public bool IsFinished { get; set; }
-        public List<Bookmark> Bookmarks { get; set; }
 
         public string TrimmedTitle
         {
@@ -28,28 +38,12 @@ namespace Readgress.WP8.Models
             }
         }
 
-        public string SubjectsStr
-        {
-            get
-            {
-                return Subjects != null ? string.Join(",", Subjects.Select(x => x.Name).ToArray()) : string.Empty;
-            }
-        }
-
         public string AuthorsStr
         {
             get
             {
-                string a = Authors != null ? string.Join(",", Authors.Select(x => x.Name).ToArray()) : string.Empty;
+                string a = Authors != null ? string.Join(",", Authors) : string.Empty;
                 return a.Length > 22 ? a.Substring(0, 20) + "..." : a;
-            }
-        }
-
-        public string PublishersStr
-        {
-            get
-            {
-                return Publishers != null ? string.Join(",", Publishers.Select(x => x.Name).ToArray()) : string.Empty;
             }
         }
 
@@ -57,7 +51,7 @@ namespace Readgress.WP8.Models
         {
             get
             {
-                return Cover == null || string.IsNullOrEmpty(Cover.Small) ? "/Assets/cover_s.png" : Cover.Small;
+                return ImageLinks == null || string.IsNullOrEmpty(ImageLinks.SmallThumbnail) ? "/Assets/cover_s.png" : ImageLinks.SmallThumbnail;
             }
         }
 
@@ -65,56 +59,27 @@ namespace Readgress.WP8.Models
         {
             get
             {
-                return Cover == null || string.IsNullOrEmpty(Cover.Medium) ? "/Assets/cover_m.png" : Cover.Medium;
+                return ImageLinks == null || string.IsNullOrEmpty(ImageLinks.SmallThumbnail) ? "/Assets/cover_m.png" : ImageLinks.SmallThumbnail.Replace("&zoom=5", "&zoom=1");
             }
         }
 
-        public string Cover_Large
+        public string Isbn
         {
             get
             {
-                return Cover == null || string.IsNullOrEmpty(Cover.Large) ? "/Assets/cover_l.png" : Cover.Large;
+                return IndustryIdentifiers.Find(i => i.Type == "ISBN_10").identifier;
             }
         }
     }
 
-    public class Author
+    public class ImageLinks
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public string SmallThumbnail { get; set; }
     }
 
-    public class Identifier
+    public class IndustryIdentifiers
     {
-        public List<string> Isbn10;
-        public List<string> isbn13;
-        public List<string> Lccn;
-        public List<string> OpenLibrary;
-        public List<string> Oclc;
+        public string Type;
+        public string identifier;
     }
-
-    public class Cover
-    {
-        public string Small { get; set; }
-        public string Medium { get; set; }
-        public string Large { get; set; }
-    }
-
-    public class Subject
-    {
-        public string Url;
-        public string Name;
-    }
-
-    public class Publisher
-    {
-        public string Name;
-    }
-
-    public class Bookmark
-    {
-        public int PageNumber { get; set; }
-        public DateTime CreatedOn { get; set; }
-    }
-
 }

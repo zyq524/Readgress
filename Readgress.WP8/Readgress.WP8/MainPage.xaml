@@ -93,7 +93,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Width="200" Height="300" Source="{Binding Cover_Medium}" 
+                                    <Image Width="200" Height="300" Source="{Binding VolumeInfo.Cover_Medium}" 
                                         Margin="12,0,0,0" VerticalAlignment="Top">
                                     </Image>
                                 </DataTemplate>
@@ -107,7 +107,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Width="200" Height="300" Source="{Binding Cover_Medium}" 
+                                    <Image Width="200" Height="300" Source="{Binding VolumeInfo.Cover_Medium}" 
                                         Margin="12,0,0,0"  VerticalAlignment="Top">
                                     </Image>
                                 </DataTemplate>
@@ -126,49 +126,12 @@
                     </Grid>
                 </ScrollViewer>
             </phone:PanoramaItem>
-            <phone:PanoramaItem>
+            <phone:PanoramaItem Header="finished">
                     <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Name="FinishedBookLongList" Margin="0,-38,-22,2" ItemsSource="{Binding FinsihedBooks}" Grid.Row="0">
-                    <phone:LongListSelector.ListHeaderTemplate>
-                        <DataTemplate>
-                            <Grid Margin="12,0,0,38">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="finished"
-                                           Style="{StaticResource PanoramaItemHeaderTextStyle}"
-                                           Grid.Row="0"/>
-                            </Grid>
-                        </DataTemplate>
-                    </phone:LongListSelector.ListHeaderTemplate>
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <!--Replace rectangle with image-->
-                                <Image Width="100" Height="150" Source="{Binding Cover_Medium}" 
-                                    VerticalAlignment="Top">
-                                </Image>
-                                <!--<Border BorderThickness="1" Width="99" Height="99" BorderBrush="#FFFFC700" Background="#FFFFC700"/>-->
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeSmall}" />
-                                    <!--<TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />-->
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                    <phone:LongListSelector.ListFooterTemplate>
-                            <DataTemplate>
-                                <Grid Margin="12,0,0,38">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" Text="You have not finished a book yet." 
+                           VerticalAlignment="Top" Width="380" FontSize="24"
+                           Visibility="{Binding HasNoFinsihedBook, Converter={StaticResource booleanToVisibilityConverter} }"/>
 
-                                <Button Name="MoreFinishedButton" Content="More" Margin="0,0,50,0"
-                                      Visibility="{Binding ItemsSource.Count, ElementName=FinishedBookLongList, Converter={StaticResource countFinishedBooksToVisibilityConverter} }"  />
-                                </Grid>
-                            </DataTemplate>
-                        </phone:LongListSelector.ListFooterTemplate>
-                </phone:LongListSelector>
             </phone:PanoramaItem>
 
             <!--Panorama item three-->

@@ -40,33 +40,6 @@ namespace Readgress.WP8
             {
                 App.BookViewModel.LoadData();
             }
-
-            //double readingBookNum = App.BookViewModel.ReadingBooks.Count();
-
-            //for (int i = 0; i < Math.Floor(readingBookNum / 2); i++)
-            //{
-            //    StackPanel sp = new StackPanel();
-            //    sp.Orientation = System.Windows.Controls.Orientation.Horizontal;
-            //    sp.HorizontalAlignment = HorizontalAlignment.Left;
-            //    if (i > 0)
-            //    {
-            //        sp.Margin = new Thickness(0, 12, 0, 0);
-            //    }
-            //    for (int j = i * 2; j < i * 2 + 2; j++)
-            //    {
-            //        var book = App.BookViewModel.ReadingBooks[j];
-            //        Image cover = new Image();
-            //        BitmapImage ImgSource = new BitmapImage(new Uri(
-            //            book.Cover_Medium));
-            //        cover.Source = ImgSource;
-            //        cover.Height = 300;
-            //        cover.Width = 200;
-            //        cover.VerticalAlignment = VerticalAlignment.Top;
-            //        cover.Margin = new Thickness(10, 0, 0, 0);
-            //        sp.Children.Add(cover);
-            //    }
-            //    ReadingBooksStackPanel.Children.Add(sp);
-            //}
         }
 
         private void Panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)

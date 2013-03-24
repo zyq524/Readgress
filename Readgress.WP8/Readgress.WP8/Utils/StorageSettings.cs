@@ -10,6 +10,7 @@ namespace Readgress.WP8.Utils
         // The isolated storage key names of our settings
         const string FbAccessTokenKeyName = "FBAccessToken";
         const string FbAccessTokenExpiresKeyName = "FBAccessTokenExpires";
+        const string FbUserName = "FbUserName";
 
         // The default value of our settings
         const string FbAccessTokenDefault = "";
@@ -108,6 +109,21 @@ namespace Readgress.WP8.Utils
             set
             {
                 AddOrUpdateValue(FbAccessTokenExpiresKeyName, value);
+                Save();
+            }
+        }
+
+        ///
+        /// Property to get and set Facebook UserName 
+        public string FacebookUserName
+        {
+            get
+            {
+                return GetValueOrDefault(FbUserName, string.Empty).ToString();
+            }
+            set
+            {
+                AddOrUpdateValue(FbUserName, value);
                 Save();
             }
         }

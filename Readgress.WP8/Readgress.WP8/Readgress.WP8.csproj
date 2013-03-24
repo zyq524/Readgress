@@ -120,6 +120,7 @@
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SearchBooksViewModel.cs" />
     <Compile Include="WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
@@ -165,6 +166,7 @@
     <Content Include="Assets\AppBar\cancel.png" />
     <Content Include="Assets\AppBar\check.png" />
     <Content Include="Assets\AppBar\delete.png" />
+    <Content Include="Assets\AppBar\refresh.png" />
     <Content Include="Assets\AppBar\select.png" />
     <Content Include="Assets\cover_l.png" />
     <Content Include="Assets\cover_m.png" />
@@ -221,6 +223,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Readgress.WPPostClient\Readgress.WPPostClient.csproj">
+      <Project>{8A9D2204-18A2-416F-8F02-517197F0CC79}</Project>
+      <Name>Readgress.WPPostClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
