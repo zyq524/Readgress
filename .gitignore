@@ -118,3 +118,12 @@ UpgradeLog*.XML
 /Readgress.WP8/Readgress.WP8/Assets/Tiles/*.db
 
 /Readgress.Web/Readgress.Web/Images/Thumbs.db
+/Readgress.WP8/Readgress.WP8/PerfLogs
+
+/Readgress.WP8/Readgress.WP8/SubmissionInfo
+
+/Readgress.WP8/Readgress.WP8/*.sap
+/Readgress.WP8/Readgress.WP8/Assets/readgressIcons/Thumbs.db
+/Readgress.WP8/Readgress.WP8/Assets/Screenshots/720/Thumbs.db
+/Readgress.WP8/Readgress.WP8/Assets/Screenshots/WXGA/Thumbs.db
+/Readgress.WP8/Readgress.WP8/Assets/Screenshots/Thumbs.db
