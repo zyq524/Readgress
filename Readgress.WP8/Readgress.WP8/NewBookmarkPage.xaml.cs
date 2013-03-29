@@ -71,6 +71,7 @@ namespace Readgress.WP8
                                 App.BookViewModel.ReadingBooks.Remove(book);
                                 App.BookViewModel.FinishedBooks.Add(book);
                                 App.BookViewModel.HasNoFinishedBook = false;
+                                App.BookViewModel.HasNoReadingBook = App.BookViewModel.ReadingBooks.Count == 0;
                                 App.ProgressViewModel.Progress.IsFinished = true;
                                 NavigationService.Navigate(new Uri("/MainPage.xaml?goto=1", UriKind.Relative));
                             }

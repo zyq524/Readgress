@@ -86,7 +86,7 @@ namespace Readgress.WP8
             }
             else
             {
-                MessageBox.Show("you have not completed a book yet");
+                MessageBox.Show("you have no completed book");
             }
         }
 

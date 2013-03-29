@@ -53,7 +53,7 @@
                      InputScope="Number" VerticalAlignment="Top" Width="456"
                      Foreground="Gray" GotFocus="PageNumberTB_GotFocus"
                      LostFocus="PageNumberTB_LostFocus"
-                     Text="What page have you got up to?"/>
+                     Text="what page have you got up to?"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,117,0,0" 
                        Foreground="Gray" TextWrapping="Wrap" Text="when" VerticalAlignment="Top" Width="209" FontSize="24"/>
             <toolkit:DatePicker x:Name="When" ValueChanged="DatePicker_ValueChanged" Margin="0,154,0,394"/>

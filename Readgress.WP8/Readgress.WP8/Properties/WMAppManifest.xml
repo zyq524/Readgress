@@ -6,7 +6,7 @@
     <Language code="da-DK" />
   </Languages>
   <App xmlns="" ProductID="{9d60174e-e25a-4c0e-89f0-0614628d7f16}" Title="Readgress" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="YuQing Zhang" Description="Track reading progress" Publisher="QingLabs" PublisherID="{3ab07d4f-14f2-46c3-834a-c2aa1f951e5c}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Assets\readgressIcons\99.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -20,9 +20,9 @@
     <Tokens>
       <PrimaryToken TokenID="Readgress.WP8Token" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\readgressIcons\110.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\readgressIcons\202.png</BackgroundImageURI>
           <Title>Readgress</Title>
           <BackContent>
           </BackContent>

@@ -22,13 +22,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <c4f:ProgressOverlay Name="loadingProgressOverlay">
+        <c4f:ProgressOverlay Name="SearchProgressOverlay">
             <c4f:ProgressOverlay.Resources>
                 <Converters:VisibilityToBooleanConverter x:Key="VisToBoolConverter" />
             </c4f:ProgressOverlay.Resources>
             <StackPanel>
-                
-                <ProgressBar IsIndeterminate="{Binding Visibility, Converter={StaticResource VisToBoolConverter}, ElementName=SearchProgressOverlay}"/>
+                <TextBlock HorizontalAlignment="Left" FontSize="24">loading...</TextBlock>
+                <ProgressBar
+                            		IsIndeterminate="{Binding Visibility, Converter={StaticResource VisToBoolConverter}, ElementName=SearchProgressOverlay}"/>
             </StackPanel>
         </c4f:ProgressOverlay>
         <!--ContentPanel - place additional content here-->

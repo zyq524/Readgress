@@ -15,7 +15,8 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>da%3bda-DK</SupportedCultures>
+    <SupportedCultures>
+    </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>Readgress.xap</XapFilename>
@@ -189,6 +190,10 @@
     <Content Include="Assets\cover_m.png" />
     <Content Include="Assets\cover_s.png" />
     <Content Include="Assets\fb_login.png" />
+    <Content Include="Assets\readgressIcons\110.png" />
+    <Content Include="Assets\readgressIcons\202.png" />
+    <Content Include="Assets\readgressIcons\300.png" />
+    <Content Include="Assets\readgressIcons\99.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
