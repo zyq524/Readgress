@@ -14,6 +14,7 @@ namespace Readgress.WP8
     {
         private static BookViewModel bookViewModel = null;
         private static SearchBooksViewModel searchBooksViewModel = null;
+        private static ProgressViewModel progressViewModel = null;
 
         public static BookViewModel BookViewModel
         {
@@ -36,6 +37,18 @@ namespace Readgress.WP8
                     searchBooksViewModel = new SearchBooksViewModel();
 
                 return searchBooksViewModel;
+            }
+        }
+
+        public static ProgressViewModel ProgressViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (progressViewModel == null)
+                    progressViewModel = new ProgressViewModel();
+
+                return progressViewModel;
             }
         }
 

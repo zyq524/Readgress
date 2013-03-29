@@ -25,9 +25,16 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Width="110" Height="150" Source="{Binding VolumeInfo.Cover_Medium}" 
-                       VerticalAlignment="Top">
-                </Image>
+                <Button Click="LocalBookButton_Click" Tag="{Binding VolumeInfo.Isbn}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Width="110" Height="150" Source="{Binding VolumeInfo.Cover_Medium}" 
+                                Margin="12,0,0,0" VerticalAlignment="Top">
+                            </Image>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+  
                 <StackPanel Grid.Column="1" VerticalAlignment="Top">
                     <TextBlock Text="{Binding VolumeInfo.TrimmedTitle}" Style="{StaticResource PhoneTextLargeStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="12,-12,12,6"/>
                     <TextBlock Text="{Binding VolumeInfo.SubTitle}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" TextTrimming="WordEllipsis"  FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>

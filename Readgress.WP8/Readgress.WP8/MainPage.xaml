@@ -21,7 +21,6 @@
 
     <phone:PhoneApplicationPage.Resources>
         <c4fc:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
-        <utils:TooManyFinishedBooksToVisibilityConverter x:Key="countFinishedBooksToVisibilityConverter"/>
 
         <shell:ApplicationBar x:Key="readingAppBar" IsVisible="True">
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/add.png" Text="Add new" Click="AddNewButton_Click"/>
@@ -31,6 +30,32 @@
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search book" Click="SearchBookButton_Click"/>
         </shell:ApplicationBar>
 
+        <!-- Resources for Books LongListMultiSelector -->
+        <DataTemplate x:Key="BookItemTemplate">
+            <Grid Margin="12,8,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Click="BookProgressButton_Click" Tag="{Binding VolumeInfo.Isbn}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Width="110" Height="150" Source="{Binding VolumeInfo.Cover_Medium}" 
+                                Margin="12,0,0,0" VerticalAlignment="Top">
+                            </Image>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding VolumeInfo.TrimmedTitle}" Style="{StaticResource PhoneTextLargeStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="12,-12,12,6"/>
+                    <TextBlock Text="{Binding VolumeInfo.SubTitle}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" TextTrimming="WordEllipsis"  FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Author(s):" Style="{StaticResource PhoneTextSmallStyle}"/>
+                        <TextBlock Text="{Binding VolumeInfo.AuthorsStr}" Style="{StaticResource PhoneTextSmallStyle}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Margin="0,0,12,0" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -55,10 +80,10 @@
             CurrentUICulture of the app at run time.
          -->
          <!--Panorama control-->
-        <phone:Panorama Title="readgress" SelectionChanged="Panorama_SelectionChanged">
-            <phone:Panorama.Background>
-                <ImageBrush ImageSource="/Readgress.WP8;component/Assets/NoSQL-Distilled.jpg" Opacity=".5"/>
-            </phone:Panorama.Background>
+        <phone:Panorama x:Name="ReadgressPanorama" Title="readgress" SelectionChanged="Panorama_SelectionChanged">
+            <!--<phone:Panorama.Background>
+                <ImageBrush ImageSource="{Binding BackgroundSource}" Opacity=".5"/>
+            </phone:Panorama.Background>-->
 
             <!--Panorama item one-->
 
@@ -79,7 +104,7 @@
                                 <Converters:VisibilityToBooleanConverter x:Key="VisToBoolConverter" />
                             </c4f:ProgressOverlay.Resources>
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Center" FontSize="24">Retrieving your books</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" FontSize="24">retrieving your books</TextBlock>
                                 <ProgressBar
                             		IsIndeterminate="{Binding Visibility, Converter={StaticResource VisToBoolConverter}, ElementName=SearchProgressOverlay}"/>
                             </StackPanel>
@@ -93,9 +118,15 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Width="200" Height="300" Source="{Binding VolumeInfo.Cover_Medium}" 
-                                        Margin="12,0,0,0" VerticalAlignment="Top">
-                                    </Image>
+                                    <Button Click="BookProgressButton_Click" Tag="{Binding VolumeInfo.Isbn}">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Width="200" Height="300" Source="{Binding VolumeInfo.Cover_Medium}" 
+                                                    Margin="12,0,0,0" VerticalAlignment="Top">
+                                                </Image>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -107,31 +138,44 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Width="200" Height="300" Source="{Binding VolumeInfo.Cover_Medium}" 
-                                        Margin="12,0,0,0"  VerticalAlignment="Top">
-                                    </Image>
+                                    <Button Click="BookProgressButton_Click" Tag="{Binding VolumeInfo.Isbn}">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Width="200" Height="300" Source="{Binding VolumeInfo.Cover_Medium}" 
+                                                    Margin="12,0,0,0" VerticalAlignment="Top">
+                                                </Image>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
 
                         </ItemsControl>
                         
                         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" 
-                                   Text="You have no books" VerticalAlignment="Top" 
+                                   Text="you have no books" VerticalAlignment="Top" 
                                    Height="48" Width="223"
                                    Visibility="{Binding HasNoReadingBook, Converter={StaticResource booleanToVisibilityConverter} }" FontSize="24" />
-                        <Button Grid.Row="2" Name="MoreReadingButton" Content="More" Margin="0,0,50,0"
+                        <Button Grid.Row="2" Name="MoreReadingButton" Content="more" Margin="0,0,50,0"
                                       Visibility="{Binding HasTooManyReadingBooks, Converter={StaticResource booleanToVisibilityConverter} }"  />
                         <!--<StackPanel Name="ReadingBooksStackPanel" Margin="0,4,16,0" Orientation="Vertical" VerticalAlignment="Top">
                         </StackPanel>-->
                     </Grid>
                 </ScrollViewer>
             </phone:PanoramaItem>
-            <phone:PanoramaItem Header="finished">
+            <phone:PanoramaItem Header="completed">
+                <Grid>
                     <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <TextBlock HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" Text="You have not finished a book yet." 
-                           VerticalAlignment="Top" Width="380" FontSize="24"
-                           Visibility="{Binding HasNoFinsihedBook, Converter={StaticResource booleanToVisibilityConverter} }"/>
-
+                    <TextBlock HorizontalAlignment="Left" Height="48" TextWrapping="Wrap" Text="you have not completed a book yet" 
+                           VerticalAlignment="Top" Width="396" FontSize="24"
+                           Visibility="{Binding HasNoFinishedBook, Converter={StaticResource booleanToVisibilityConverter} }"/>
+                    <toolkit:LongListMultiSelector x:Name="BookList" Background="Transparent"
+                                            Margin="0,-8,0,0"
+                                            LayoutMode="List"
+                                            ItemTemplate="{StaticResource BookItemTemplate}"
+                                            ItemsSource="{Binding FinishedBooks}"
+                                            />
+                </Grid>
             </phone:PanoramaItem>
 
             <!--Panorama item three-->

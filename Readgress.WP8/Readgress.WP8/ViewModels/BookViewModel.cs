@@ -23,8 +23,9 @@ namespace Readgress.WP8.ViewModels
 
         private bool isDataLoading = true;
         private bool hasNoReadingBook = false;
-        private bool hasNoFinishedBook = false;
+        private bool hasNoFinishedBook = true;
         private bool hasTooManyReadingBooks = false;
+        private string backgroundSource = string.Empty;
         
         public BookViewModel()
         {
@@ -58,6 +59,21 @@ namespace Readgress.WP8.ViewModels
 
         private void ReadingBooks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            int index = 0;
+            FirstThreeReadingBooks = new ObservableCollection<Book>();
+            SecondThreeReadingBooks = new ObservableCollection<Book>();
+            foreach (var book in ReadingBooks)
+            {
+                if (index < 3)
+                {
+                    FirstThreeReadingBooks.Add(book);
+                }
+                else if (index < 6)
+                {
+                    SecondThreeReadingBooks.Add(book);
+                }
+                index++;
+            }
             NotifyPropertyChanged("ReadingBooks");
         }
 
@@ -80,7 +96,7 @@ namespace Readgress.WP8.ViewModels
             {
                 return this.hasNoReadingBook;
             }
-            private set
+            set
             {
                 this.hasNoReadingBook = value;
                 NotifyPropertyChanged("HasNoReadingBook");
@@ -93,7 +109,7 @@ namespace Readgress.WP8.ViewModels
             {
                 return this.hasNoFinishedBook;
             }
-            private set
+            set
             {
                 this.hasNoFinishedBook = value;
                 NotifyPropertyChanged("HasNoFinishedBook");
@@ -106,10 +122,23 @@ namespace Readgress.WP8.ViewModels
             {
                 return this.hasTooManyReadingBooks;
             }
-            private set
+            set
             {
                 this.hasTooManyReadingBooks = value;
                 NotifyPropertyChanged("HasTooManyReadingBooks");
+            }
+        }
+
+        public string BackgroundSource
+        {
+            get
+            {
+                return this.backgroundSource;
+            }
+            private set
+            {
+                this.backgroundSource = value;
+                NotifyPropertyChanged("BackgroundSource");
             }
         }
 
@@ -149,75 +178,27 @@ namespace Readgress.WP8.ViewModels
                             }
                             else
                             {
-                                if (index < 3)
-                                {
-                                    FirstThreeReadingBooks.Add(book);
-                                }
-                                else if (index < 6)
-                                {
-                                    SecondThreeReadingBooks.Add(book);
-                                }
+                                //if (index < 3)
+                                //{
+                                //    FirstThreeReadingBooks.Add(book);
+                                //}
+                                //else if (index < 6)
+                                //{
+                                //    SecondThreeReadingBooks.Add(book);
+                                //}
                                 ReadingBooks.Add(book);
                                 index++;
                             }
                         }
                     }
-                    this.hasNoFinishedBook = FinishedBooks.Count == 0 ? true : false;
-                    this.hasNoReadingBook = ReadingBooks.Count == 0 ? true : false;
-                    this.hasTooManyReadingBooks = ReadingBooks.Count > 4;
+                    this.hasNoFinishedBook = FinishedBooks.Count == 0;
+                    this.hasNoReadingBook = ReadingBooks.Count == 0;
+                    this.hasTooManyReadingBooks = ReadingBooks.Count > 6;
                 }
+
+                this.isDataLoading = false;
             }
-
-            //ReadingBooks.Add(new Book() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://ImageLinkss.openlibrary.org/b/id/461563-M.jpg" }, IsFinished = false });
-            //ReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://ImageLinkss.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
-
-            //ReadingBooks.Add(new Book() { Title = "The VaultReports.com Employer Profile for Job Seekers", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://ImageLinkss.openlibrary.org/b/id/2934627-M.jpg" }, IsFinished = false });
-            //ReadingBooks.Add(new Book() { Title = "Microsoft ASP.NET 2.0 Step By Step", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://ImageLinkss.openlibrary.org/b/id/461594-M.jpg" }, IsFinished = false });
-
-            //IsDataLoaded = true;
-            //try
-            //{
-            //    StorageSettings settings = new StorageSettings();
-            //    WebClient webClient = new WebClient();
-            //    webClient.Headers["FacebookAccessToken"] = settings.FacebookAccessToken;
-
-            //    webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(WebClient_DownloadStringCompleted);
-            //    webClient.DownloadStringAsync(new Uri(ReadgressAPIEndpoints.ReaderUrl));
-
-            //}
-            //catch
-            //{
-            //    throw new Exception("Service is not available. Try it later.");
-            //}
-
-
         }
-
-        //private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        //{
-        //    //if (e.Error != null)
-        //    //{
-        //    //    return;
-        //    //}
-        //    IsDataLoading = false;
-        //    FinishedBooks.Add(new VolumeInfo() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks4.books.google.com/books?id=zmFJq_-3vZAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" }, IsFinished = true });
-        //    FinsihedBooks.Add(new VolumeInfo() { Title = "The VaultReports.com Employer Profile for Job Seekers", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks7.books.google.com/books?id=nZSaSwggmw8C&printsec=frontcover&img=1&zoom=5&source=gbs_api" }, IsFinished = true });
-        //    FinsihedBooks.Add(new VolumeInfo() { Title = "Microsoft ASP.NET 2.0 Step By Step", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks2.books.google.com/books?id=PFG22kTSiPwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" }, IsFinished = true });
-        //    FinsihedBooks.Add(new VolumeInfo() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks4.books.google.com/books?id=zmFJq_-3vZAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" }, IsFinished = true });
-        //    FinsihedBooks.Add(new VolumeInfo() { Title = "The VaultReports.com Employer Profile for Job Seekers", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks7.books.google.com/books?id=nZSaSwggmw8C&printsec=frontcover&img=1&zoom=5&source=gbs_api" }, IsFinished = true });
-        //    FinsihedBooks.Add(new VolumeInfo() { Title = "Microsoft ASP.NET 2.0 Step By Step", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks2.books.google.com/books?id=PFG22kTSiPwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" }, IsFinished = true });
-
-        //    FirstThreeReadingBooks.Add(new VolumeInfo() { Title = "The VaultReports.com Employer Profile for Job Seekers", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks7.books.google.com/books?id=nZSaSwggmw8C&printsec=frontcover&img=1&zoom=5&source=gbs_api" }, IsFinished = true });
-        //    FirstThreeReadingBooks.Add(new VolumeInfo() { Title = "Microsoft ASP.NET 2.0 Step By Step", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks2.books.google.com/books?id=PFG22kTSiPwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" }, IsFinished = true });
-
-        //    SecondThreeReadingBooks.Add(new VolumeInfo() { Title = "Microsoft ASP.NET 2.0 Step By Step", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://bks2.books.google.com/books?id=PFG22kTSiPwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" }, IsFinished = true });
-        //    SecondThreeReadingBooks.Add(new VolumeInfo() { Title = "Microsoft .NET Development for Microsoft Office (Office/Progmng/Net)", ImageLinks = new ImageLinks() { SmallThumbnail = @"http://ImageLinkss.openlibrary.org/b/id/461563-M.jpg" }, IsFinished = true });
-           
-        //    HasNoFinishedBook = FinsihedBooks.Count == 0;
-        //    HasNoReadingBook = ReadingBooks.Count == 0;
-
-        //    HasTooManyReadingBooks = ReadingBooks.Count > 4;
-        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

@@ -3,7 +3,6 @@ using Microsoft.Phone.Shell;
 using Newtonsoft.Json;
 using Readgress.WP8.Models;
 using Readgress.WP8.Utils;
-using Readgress.WPPostClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,21 +26,34 @@ namespace Readgress.WP8
 
             CreateApplicationBarItems();
             DataContext = App.SearchBooksViewModel;
+            
         }
 
         private int startIndex;
         private int totalItems;
         private string bookTitleToSearch;
+        private string mode;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            startIndex = 0;
-            totalItems = 0;
+            if (e.NavigationMode != NavigationMode.Back)
+            {
+                startIndex = 0;
+                totalItems = 0;
 
-            bookTitleToSearch = NavigationContext.QueryString["booktitle"];
-            SearchBooksTotalItems(bookTitleToSearch);
+                bookTitleToSearch = NavigationContext.QueryString["booktitle"];
+                mode = NavigationContext.QueryString["mode"];
+                if (mode == "Internet")
+                {
+                    SearchBooksTotalItems(bookTitleToSearch);
+                }
+                else
+                {
+                    SearchLocalBook(bookTitleToSearch);
+                }
+            }
         }
 
         private void SearchBooksTotalItems(string title)
@@ -63,7 +75,7 @@ namespace Readgress.WP8
                         }
                         else
                         {
-                            MessageBox.Show("Service is not available. Try it later.");
+                            MessageBox.Show("service is not available. try it later.");
                         }
                     };
                 webClient.DownloadStringAsync(new Uri(booksUrl), UriKind.Absolute);
@@ -120,7 +132,7 @@ namespace Readgress.WP8
                     }
                     else
                     {
-                        MessageBox.Show("Service is not available. Try it later.");
+                        MessageBox.Show("service is not available. try it later.");
                     }
                 };
                 webClient.DownloadStringAsync(new Uri(booksUrl), UriKind.Absolute);
@@ -155,6 +167,34 @@ namespace Readgress.WP8
 
         //    OnBookListActivated();
         //}
+
+        public void SearchLocalBook(string bookTitleToSearch)
+        {
+            var books = App.BookViewModel.FinishedBooks.Where(b => b.VolumeInfo.Title.ToUpper().Contains(bookTitleToSearch.ToUpper()));
+
+            if (books.Count() == 0)
+            {
+                MessageBox.Show("no book found");
+                NavigationService.GoBack();
+            }
+            else
+            {
+                foreach (var book in books)
+                {
+                    App.SearchBooksViewModel.FoundBooks.Add(book);
+                }
+                SearchProgressOverlay.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void LocalBookButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (mode == "Local")
+            {
+                var element = (FrameworkElement)sender;
+                NavigationService.Navigate(new Uri(string.Format("/BookProgressPage.xaml?Isbn={0}", element.Tag.ToString()), UriKind.Relative));
+            }
+        }
 
         #region MultiselectListbox item
         ApplicationBarIconButton select;
@@ -291,11 +331,21 @@ namespace Readgress.WP8
             {
                 AddNewProgress((Book)BookList.SelectedItems[i]);
             }
+            if (selectedItemsCount > 1)
+            {
+                MessageBox.Show("books have added to your reading list");
+            }
+            else
+            {
+                MessageBox.Show("book has added to your reading list.");
+            }
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         void AddNewProgress(Book book)
         {
             StorageSettings settings = new StorageSettings();
+            bool xmlChanged = false;
 
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
@@ -315,53 +365,69 @@ namespace Readgress.WP8
                             new XElement("SubTitle", book.VolumeInfo.SubTitle),
                             new XElement("Authors", book.VolumeInfo.AuthorsStr),
                             new XElement("CoverMedium", book.VolumeInfo.Cover_Medium),
+                            new XElement("PageCount", book.VolumeInfo.PageCount),
+                            new XElement("PublishedDate", book.VolumeInfo.PublishedDate),
+                            new XElement("Publisher", book.VolumeInfo.Publisher),
                             new XElement("IsFinished", false),
                             new XElement("Bookmarks"));
                         XElement progresses = doc.Descendants("Progresses").First();
                         progresses.Add(progressElm);
+                        if (App.BookViewModel.FirstThreeReadingBooks.Count < 3)
+                        {
+                            App.BookViewModel.FirstThreeReadingBooks.Add(book);
+                        }
+                        else if (App.BookViewModel.SecondThreeReadingBooks.Count < 3)
+                        {
+                            App.BookViewModel.SecondThreeReadingBooks.Add(book);
+                        }
+
+                        App.BookViewModel.ReadingBooks.Add(book);
+                        App.BookViewModel.HasNoReadingBook = false;
+                        xmlChanged = true;
                     }
                     else
                     {
                         doc = null;
-                        MessageBox.Show("You have added this book.");
+                        MessageBox.Show("you have added this book");
                     }
 
                 }
 
-                if (doc != null)
+                if (doc != null && xmlChanged)
                 {
                     using (IsolatedStorageFileStream stream = storage.OpenFile(App.LocalStorageFile, FileMode.Open, FileAccess.Write))
                     {
                         doc.Save(stream);
                     }
                 }
+
                 BookList.IsSelectionEnabled = false;
             }
         }
 
         void PostNewProgress(Book book)
         {
-            StorageSettings settings = new StorageSettings();
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("UserName", settings.FacebookUserName);
-            parameters.Add("Isbn", book.VolumeInfo.Isbn);
-            parameters.Add("GoogleBookId", book.Id);
-            parameters.Add("IsFinished", false);
+            //StorageSettings settings = new StorageSettings();
+            //Dictionary<string, object> parameters = new Dictionary<string, object>();
+            //parameters.Add("UserName", settings.FacebookUserName);
+            //parameters.Add("Isbn", book.VolumeInfo.Isbn);
+            //parameters.Add("GoogleBookId", book.Id);
+            //parameters.Add("IsFinished", false);
 
-            PostClient client = new PostClient(parameters);
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error == null)
-                {
-                    //Process the result...
-                    string data = e.Result;
-                }
-                else
-                {
-                    MessageBox.Show("Service is not available. Try it later.");
-                }
-            };
-            client.DownloadStringAsync(new Uri(ReadgressAPIEndpoints.ProgressUrl, UriKind.Absolute), settings.FacebookAccessToken);
+            //PostClient client = new PostClient(parameters);
+            //client.DownloadStringCompleted += (sender, e) =>
+            //{
+            //    if (e.Error == null)
+            //    {
+            //        //Process the result...
+            //        string data = e.Result;
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Service is not available. Try it later.");
+            //    }
+            //};
+            //client.DownloadStringAsync(new Uri(ReadgressAPIEndpoints.ProgressUrl, UriKind.Absolute), settings.FacebookAccessToken);
         }
 
         /// <summary>

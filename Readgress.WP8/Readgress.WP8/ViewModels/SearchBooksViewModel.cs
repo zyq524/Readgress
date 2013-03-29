@@ -17,7 +17,6 @@ namespace Readgress.WP8.ViewModels
     {
         public ObservableCollection<Book> FoundBooks { get; set; }
 
-
         private int startIndex = 0;
         private int totalItems = 0;
         private bool hasMore = false;

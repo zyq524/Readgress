@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Readgress.WP8.Utils;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace Readgress.WP8
 {
@@ -23,7 +24,6 @@ namespace Readgress.WP8
             DataContext = App.BookViewModel;
 
             ApplicationBar = Resources["readingAppBar"] as ApplicationBar;
-
         }
 
         // Load data for the ViewModel Items
@@ -36,9 +36,18 @@ namespace Readgress.WP8
                 NavigationService.Navigate(new Uri("/WelcomePage.xaml", UriKind.Relative));
             }
 
-            if (App.BookViewModel.IsDataLoading)
+            else
             {
-                App.BookViewModel.LoadData();
+                if (App.BookViewModel.IsDataLoading)
+                {
+                    App.BookViewModel.LoadData();
+                }
+
+                string itemIndex;
+                if (NavigationContext.QueryString.TryGetValue("goto", out itemIndex))
+                {
+                    ReadgressPanorama.DefaultItem = ReadgressPanorama.Items[Convert.ToInt32(itemIndex)];
+                }
             }
         }
 
@@ -59,12 +68,33 @@ namespace Readgress.WP8
 
         private void AddNewButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/SearchBookPage.xaml", UriKind.Relative));
+            if (App.BookViewModel.ReadingBooks.Count == 6)
+            {
+                MessageBox.Show("only 6 reading books are allowed");
+            }
+            else
+            {
+                NavigationService.Navigate(new Uri("/SearchBookPage.xaml?Mode=Internet", UriKind.Relative));
+            }
         }
 
         private void SearchBookButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Search book works!");
+            if (App.BookViewModel.FinishedBooks.Count > 0)
+            {
+                NavigationService.Navigate(new Uri("/SearchBookPage.xaml?Mode=Local", UriKind.Relative));
+            }
+            else
+            {
+                MessageBox.Show("you have not completed a book yet");
+            }
         }
+
+        private void BookProgressButton_Click(object sender, RoutedEventArgs e)
+        {
+            var element = sender as Button;
+            NavigationService.Navigate(new Uri(string.Format("/BookProgressPage.xaml?Isbn={0}", element.Tag.ToString()), UriKind.Relative));
+        }
+
     }
 }

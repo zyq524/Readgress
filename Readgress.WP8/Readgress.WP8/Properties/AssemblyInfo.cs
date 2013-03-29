@@ -7,9 +7,9 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Readgress")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Track reading progress")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("QingLabs")]
 [assembly: AssemblyProduct("Readgress")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]

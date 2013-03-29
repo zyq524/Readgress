@@ -6,6 +6,9 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c4f="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
+     xmlns:c4fc="clr-namespace:Coding4Fun.Toolkit.Controls.Converters;assembly=Coding4Fun.Toolkit.Controls" 
+    xmlns:Converters="clr-namespace:Coding4Fun.Toolkit.Controls.Converters;assembly=Coding4Fun.Toolkit.Controls"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -19,7 +22,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <c4f:ProgressOverlay Name="loadingProgressOverlay">
+            <c4f:ProgressOverlay.Resources>
+                <Converters:VisibilityToBooleanConverter x:Key="VisToBoolConverter" />
+            </c4f:ProgressOverlay.Resources>
+            <StackPanel>
+                
+                <ProgressBar IsIndeterminate="{Binding Visibility, Converter={StaticResource VisToBoolConverter}, ElementName=SearchProgressOverlay}"/>
+            </StackPanel>
+        </c4f:ProgressOverlay>
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:WebBrowser x:Name="webBrowser1" IsScriptEnabled="True" Navigated="webBrowser1_Navigated" Loaded="webBrowser1_Loaded"/>
