@@ -1,15 +1,11 @@
-﻿using System;
-using System.Net;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Readgress.WP8.Utils;
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Readgress.WP8.Utils;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
 
 namespace Readgress.WP8
 {
@@ -24,6 +20,23 @@ namespace Readgress.WP8
             DataContext = App.BookViewModel;
 
             ApplicationBar = Resources["readingAppBar"] as ApplicationBar;
+            BackKeyPress += OnBackKeyPressed;
+        }
+
+        private void OnBackKeyPressed(object sender, CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to exit?", "Attention!",
+                                          MessageBoxButton.OKCancel);
+
+            if (result == MessageBoxResult.OK)
+            {
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+                return;
+            }
+            e.Cancel = true;
         }
 
         // Load data for the ViewModel Items

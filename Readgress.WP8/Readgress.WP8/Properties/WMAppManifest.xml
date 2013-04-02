@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <Languages xmlns="">
-    <Language code="da" />
-    <Language code="da-DK" />
-  </Languages>
   <App xmlns="" ProductID="{9d60174e-e25a-4c0e-89f0-0614628d7f16}" Title="Readgress" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="YuQing Zhang" Description="Track reading progress" Publisher="QingLabs" PublisherID="{3ab07d4f-14f2-46c3-834a-c2aa1f951e5c}">
     <IconPath IsRelative="true" IsResource="false">Assets\readgressIcons\99.png</IconPath>
     <Capabilities>
